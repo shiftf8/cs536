@@ -12,11 +12,13 @@ bool isPermutation( const unsigned a[], unsigned elements );
 void inverse( unsigned a[], const unsigned b[], unsigned elements );
 bool sorted( const unsigned a[], unsigned elements );
 void merge( unsigned combo[], const unsigned a[], unsigned aElements, const unsigned b[], unsigned bElements );
+unsigned long long sum( const unsigned a[], unsigned elements, unsigned f( unsigned n ) );
+unsigned cube( unsigned n );
 
 bool die( const string & msg );
 
 int main(){
-	unsigned a[] = {2, 4, 6, 8};
+/*	unsigned a[] = {2, 4, 6, 8};
 	show( a, 4 );
 
 	unsigned b[] = {3, 0, 2, 1};
@@ -33,9 +35,12 @@ int main(){
 	
 	unsigned e[] = {3, 5, 7, 7, 9};
 	unsigned f[] = {2, 5, 8, 1234};
-	unsigned g[9];
-	merge(g, e, 5, f, 4);
+	unsigned g[100];
+	merge(g, e, 1, f, 4);
 	cout << endl;
+*/
+    unsigned h[] = {3, 5, 2, 1};
+    cout << sum(h, 4, cube);
 
 	//system("pause");
 	return 0;
@@ -72,6 +77,7 @@ void inverse( unsigned a[], const unsigned b[], unsigned elements ){
 	}
 }
 bool sorted( const unsigned a[], unsigned elements ){
+	if (elements == 0) return true;
 	for (unsigned i = 0; i < elements; i++){
 		if (i == elements - 1) return true;
 		if (a[i] > a[i + 1]) return false;
@@ -82,12 +88,13 @@ void merge( unsigned combo[], const unsigned a[], unsigned aElements, const unsi
 	unsigned aCount = 0;
 	unsigned bCount = 0;
 	bool endOfArr = false;
-	unsigned comboSize = 0; // not sure how to handle this exactly. prototype suggests main implements combo[] length.
+	unsigned comboSize = 0;
 	
-	if (!sorted(a, aElements)) die("array a[] is not sorted or has no elements.");
-	if (!sorted(b, bElements)) die("array b[] is not sorted or has no elements.");
+	if (!sorted(a, aElements)) die("array a[] is not sorted.");
+	if (!sorted(b, bElements)) die("array b[] is not sorted.");
 	
-	comboSize = aElements + bElements; // not sure how to handle this exactly. prototype suggests main implements combo[] length.
+    if (aElements == 0 || bElements == 0) endOfArr = true;
+	comboSize = aElements + bElements; // prototype suggests main implements combo[] length. this could be problematic should a plus b elements be larger than combo[] size.
 	
 	for (unsigned i = 0; i < comboSize; i++){
 		if ((aCount < aElements) && (bCount < bElements)){
@@ -106,18 +113,29 @@ void merge( unsigned combo[], const unsigned a[], unsigned aElements, const unsi
 		if (endOfArr){
     		if (aCount < aElements){
     		    combo[i] = a[aCount];
-    			//cout << ", eoa: a" << combo[i];
+    			//cout << ", eor: a" << combo[i];
     		    aCount++;
     		    continue;
     		}
     		if (bCount < bElements){
     		    combo[i] = b[bCount];
-    			//cout << ", eoa: b" << combo[i];
+    			//cout << ", eor: b" << combo[i];
     		    bCount++;
     		    continue;
     		}
 		}
 	}
+}
+unsigned long long sum( const unsigned a[], unsigned elements, unsigned f( unsigned n ) ){
+    unsigned long long total = 0;
+    
+    for (unsigned i = 0; i < elements; i++){
+        total += f(a[i]);
+    }
+    return total;
+}
+unsigned cube( unsigned n ){
+    return n * n * n;
 }
 
 bool die( const string & msg ){
