@@ -109,9 +109,9 @@ void show( const unsigned a[], unsigned elements ){
 	cout << "[" << elements << "]: ";
 	for (unsigned i = 0; i < elements; i++){
 		cout << a[i];
-		if (i == elements - 1) cout << endl;
-		else cout << ", ";
+		if (i != elements - 1) cout << ", ";
 	}
+	cout << endl;
 }
 bool isPermutation( const unsigned a[], unsigned elements ){
 	bool isPerm = false;
@@ -136,7 +136,7 @@ void inverse( unsigned a[], const unsigned b[], unsigned elements ){
 	}
 }
 bool sorted( const unsigned a[], unsigned elements ){
-	if (elements == 0) return true;
+	if (elements == 0) return true; //an array 0 elements is still an array
 	for (unsigned i = 0; i < elements; i++){
 		if (i == elements - 1) return true;
 		if (a[i] > a[i + 1]) return false;

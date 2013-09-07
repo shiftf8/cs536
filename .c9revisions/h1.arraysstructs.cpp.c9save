@@ -1265,3 +1265,10 @@
 {"ts":1378596199525,"patch":[[{"diffs":[[0,"10 = {45"],[-1,"6"],[0,", '!', {"]],"start1":2635,"start2":2635,"length1":17,"length2":16},{"diffs":[[0,"t7 = {34"],[-1,"5"],[0,", '@', {"]],"start1":2681,"start2":2681,"length1":17,"length2":16}]],"length":7981,"saved":false}
 {"ts":1378596200326,"patch":[[{"diffs":[[0,"t8 = {23"],[-1,"4"],[0,", '#', {"]],"start1":2727,"start2":2727,"length1":17,"length2":16}]],"length":7980,"saved":false}
 {"ts":1378596200914,"patch":[[{"diffs":[[0,"t9 = {12"],[-1,"3"],[0,", '$', {"]],"start1":2773,"start2":2773,"length1":17,"length2":16}]],"length":7979,"saved":false}
+{"ts":1378597012147,"patch":[[{"diffs":[[0,"< a[i];\n\t\tif (i "],[-1,"="],[1,"!"],[0,"= elements - 1) "]],"start1":3132,"start2":3132,"length1":33,"length2":33}]],"length":7979,"saved":false}
+{"ts":1378597018748,"patch":[[{"diffs":[[0,"t <<"],[-1," endl;\n\t\telse cout <<"],[0," \", "]],"start1":3168,"start2":3168,"length1":29,"length2":8}]],"length":7958,"saved":false}
+{"ts":1378597074740,"patch":[[{"diffs":[[0,"<< \", \";\n\t}\n"],[1,"\tc\n"],[0,"}\nbool isPer"]],"start1":3170,"start2":3170,"length1":24,"length2":27}]],"length":7961,"saved":false}
+{"ts":1378597077038,"patch":[[{"diffs":[[0,"\";\n\t}\n\tc"],[1,"out << endl;"],[0,"\n}\nbool "]],"start1":3176,"start2":3176,"length1":16,"length2":28}]],"length":7973,"saved":false}
+{"ts":1378597712196,"patch":[[{"diffs":[[0,"rn true;"],[1," //"],[0,"\n\tfor (u"]],"start1":3894,"start2":3894,"length1":16,"length2":19}]],"length":7976,"saved":false}
+{"ts":1378597716180,"patch":[[{"diffs":[[0,"true; //"],[1,"an array "],[0,"\n\tfor (u"]],"start1":3897,"start2":3897,"length1":16,"length2":25}]],"length":7985,"saved":false}
+{"ts":1378597721604,"patch":[[{"diffs":[[0,"n array "],[1,"0 elements is still an array"],[0,"\n\tfor (u"]],"start1":3906,"start2":3906,"length1":16,"length2":44}]],"length":8013,"saved":false}
