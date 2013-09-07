@@ -21,7 +21,7 @@ double max( const ABC arr[], unsigned elements );
 void set( ABC & x, unsigned n, char c, const double a[nArr] );
 void get( unsigned & n, char & c, double a[nArr], const ABC & x );
 void set( ABC x[], const unsigned n[], const char c[], const double a[][nArr], unsigned elements );
-void get( unsigned n[], char c[], double a[][3], const ABC x[], unsigned elements );
+void get( unsigned n[], char c[], double a[][nArr], const ABC x[], unsigned elements );
 
 void show( const unsigned a[], unsigned elements );
 bool isPermutation( const unsigned a[], unsigned elements );
@@ -90,6 +90,16 @@ int main(){
         {4.1, 4.2, 4.3}
     };
     set(arr2, e, f, g, 4);
+    
+    ABC struct10 = {45, '!', {4.1, 4.2, 4.3}};
+    ABC struct7 = {34, '@', {3.1, 3.2, 3.3}};
+    ABC struct8 = {23, '#', {2.1, 2.2, 2.3}};
+    ABC struct9 = {12, '$', {1.1, 2.2, 3.3}};
+    ABC arr3[4] = {struct10, struct7, struct8, struct9};
+    unsigned h[4];
+    char i[4];
+    double j[4][nArr];
+    get(h, i, j, arr3, 4);
     
 	//system("pause");
 	return 0;
@@ -247,8 +257,23 @@ void set ( ABC x[], const unsigned n[], const char c[], const double a[][nArr], 
 */
     }
 }
-void get( unsigned n[], char c[], double a[][3], const ABC x[], unsigned elements ){
-    
+void get( unsigned n[], char c[], double a[][nArr], const ABC x[], unsigned elements ){
+    for (unsigned i = 0; i < elements; i++){
+        n[i] = x[i].n;
+        c[i] = x[i].c;
+        for (unsigned j = 0; j < nArr; j++){
+            a[i][j] = x[i].a[j];
+        }
+
+        //test code
+        cout << "{" << x[i].n << ", \'" << x[i].c << "\', {";
+        for (unsigned j = 0; j < nArr; j++){
+            cout << x[i].a[j];
+            if (j != nArr - 1) cout << ", ";
+        }
+        cout << "}}" << endl;
+/**/
+    }
 }
 
 bool die( const string & msg ){
