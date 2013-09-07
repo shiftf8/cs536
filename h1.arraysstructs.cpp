@@ -7,6 +7,22 @@
 #include <string>
 using namespace std;
 
+#define nArr 3
+struct ABC{
+    unsigned n;
+    char c;
+    double a[nArr]; // is this ok, to have an array inside a struct? Absolutely!!
+};
+
+void show( const ABC & x );
+void show( const ABC arr[], unsigned elements );
+double max( const ABC & x );
+double max( const ABC arr[], unsigned elements );
+void set( ABC & x, unsigned n, char c, const double a[nArr] );
+void get( unsigned & n, char & c, double a[nArr], const ABC & x );
+void set( ABC x[], const unsigned n[], const char c[], const double a[][nArr], unsigned elements );
+void get( unsigned n[], char c[], double a[][3], const ABC x[], unsigned elements );
+
 void show( const unsigned a[], unsigned elements );
 bool isPermutation( const unsigned a[], unsigned elements );
 void inverse( unsigned a[], const unsigned b[], unsigned elements );
@@ -38,10 +54,43 @@ int main(){
 	unsigned g[100];
 	merge(g, e, 1, f, 4);
 	cout << endl;
-*/
+
     unsigned h[] = {3, 5, 2, 1};
     cout << sum(h, 4, cube);
+*/
+    ABC struct1 = {18, 'W', {1.1, 2.2, 3.3}};
+//    show(struct1);
+    
+    ABC struct2 = {123, 'A', {1.1, 2.2, 3.3}};
+    ABC struct3 = {234, 'B', {2.1, 2.2, 2.3}};
+    ABC struct4 = {345, 'C', {3.1, 3.2, 3.3}};
+    ABC struct5 = {456, 'D', {4.1, 4.2, 4.3}};
+    ABC arr1[4] = {struct2, struct3, struct4, struct5};
+//    show(arr1, 4);
 
+//    cout << max(struct1) << endl;
+//    cout << max(arr1, 4) << endl;
+    
+    ABC struct6;
+    double doubleArr[3] = {10.0, 20.0, 30.0};
+    set(struct6, 1234, '?', doubleArr);
+//    show(struct6);
+    double doubleArr1[3];
+    unsigned n;
+    char c;
+    get(n, c, doubleArr1, struct6);
+    
+    ABC arr2[4];
+    unsigned e[4] = {111, 222, 333, 444};
+    char f[4] = {'z', 'y', 'X', 'W'};
+    double g[4][nArr] = {
+        {1.1, 2.2, 3.3},
+        {2.1, 2.2, 2.3},
+        {3.1, 3.2, 3.3},
+        {4.1, 4.2, 4.3}
+    };
+    set(arr2, e, f, g, 4);
+    
 	//system("pause");
 	return 0;
 } //main()
@@ -136,6 +185,70 @@ unsigned long long sum( const unsigned a[], unsigned elements, unsigned f( unsig
 }
 unsigned cube( unsigned n ){
     return n * n * n;
+}
+
+void show( const ABC & x ){
+    cout << "{" << x.n << ", \'" << x.c << "\', {";
+    for (unsigned i = 0; i < nArr; i++){
+        cout << x.a[i];
+        if (i != nArr - 1) cout << ", ";
+    }
+    cout << "}}" << endl;
+}
+void show( const ABC arr[], unsigned elements ){
+    for (unsigned i = 0; i < elements; i++) show(arr[i]);
+}
+double max( const ABC & x ){
+    double maxInABC = 0.0;
+    
+    for (unsigned i = 0; i < nArr; i++){
+        if (x.a[i] > maxInABC) maxInABC = x.a[i];
+    }
+    return maxInABC;
+}
+double max( const ABC arr[], unsigned elements ){
+    double maxInABCs = 0.0;
+    
+    for (unsigned i = 0; i < elements; i++){
+        if (max(arr[i]) > maxInABCs) maxInABCs = max(arr[i]);
+    }
+    return maxInABCs;
+}
+void set( ABC & x, unsigned n, char c, const double a[nArr] ){
+    x.n = n;
+    x.c = c;
+    for (unsigned i = 0; i < nArr; i++) x.a[i] = a[i];
+}
+void get( unsigned & n, char & c, double a[nArr], const ABC & x ){
+    n = x.n;
+    c = x.c;
+    for (unsigned i = 0; i < nArr; i++) a[i] = x.a[i];
+    
+/*    //test code
+    cout << "{" << n << ", \'" << c << "\', {";
+    for (unsigned j = 0; j < nArr; j++){
+        cout << x.a[j];
+        if (j != nArr - 1) cout << ", ";
+    }
+    cout << "}}" << endl;
+*/
+}
+void set ( ABC x[], const unsigned n[], const char c[], const double a[][nArr], unsigned elements ){
+    for (unsigned i = 0; i < elements; i++){
+        set(x[i], n[i], c[i], a[i]);
+
+/*        //test code
+        cout << "{" << x[i].n << ", \'" << x[i].c << "\', {";
+        for (unsigned j = 0; j < nArr; j++){
+            cout << x[i].a[j];
+            if (j != nArr - 1) cout << ", ";
+        }
+        cout << "}}" << endl;
+*/
+    }
+}
+void get( unsigned n[], char c[], double a[][3], const ABC x[], unsigned elements ){
+    
 }
 
 bool die( const string & msg ){
