@@ -1,7 +1,7 @@
 //Lamog, Rob
 //h1.Arrays & Structs
 //Hart
-//08/26/13
+//09/09/13
 
 #include <iostream>
 #include <string>
