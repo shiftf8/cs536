@@ -3,8 +3,9 @@
 //Hart
 //09/09/13
 
-#include <iostream>
-#include <string>
+#include<climits>
+#include<iostream>
+#include<string>
 using namespace std;
 
 #define nArr 3
@@ -38,7 +39,8 @@ int main(){
 	show( a, 4 );
 
 	unsigned b[] = {3, 0, 2, 1};
-	bool boo = isPermutation( b, 4 );
+	unsigned z[] = {0};
+	bool boo = isPermutation( z, 1 );
 	cout << boo << endl;
 
 	inverse(a, b, 4);
@@ -209,7 +211,8 @@ void show( const ABC arr[], unsigned elements ){
     for (unsigned i = 0; i < elements; i++) show(arr[i]);
 }
 double max( const ABC & x ){
-    double maxInABC = 0.0;
+    double maxInABC;
+    maxInABC = x.a[0]; //failed to notice lowest value could be negative. /********************************************/
     
     for (unsigned i = 0; i < nArr; i++){
         if (x.a[i] > maxInABC) maxInABC = x.a[i];
@@ -217,7 +220,8 @@ double max( const ABC & x ){
     return maxInABC;
 }
 double max( const ABC arr[], unsigned elements ){
-    double maxInABCs = 0.0;
+    double maxInABCs;
+    maxInABCs = LONG_MIN<double>; //failed to notice lowest value could be negative. /*******************************************/
     
     for (unsigned i = 0; i < elements; i++){
         if (max(arr[i]) > maxInABCs) maxInABCs = max(arr[i]);
