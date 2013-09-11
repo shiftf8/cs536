@@ -3,7 +3,6 @@
 //Hart
 //09/09/13
 
-#include<climits>
 #include<iostream>
 #include<string>
 using namespace std;
@@ -212,7 +211,7 @@ void show( const ABC arr[], unsigned elements ){
 }
 double max( const ABC & x ){
     double maxInABC;
-    maxInABC = x.a[0]; //failed to notice lowest value could be negative. /********************************************/
+    maxInABC = x.a[0]; //failed to notice lowest value could be negative. /*solved*/
     
     for (unsigned i = 0; i < nArr; i++){
         if (x.a[i] > maxInABC) maxInABC = x.a[i];
@@ -221,7 +220,7 @@ double max( const ABC & x ){
 }
 double max( const ABC arr[], unsigned elements ){
     double maxInABCs;
-    maxInABCs = LONG_MIN<double>; //failed to notice lowest value could be negative. /*******************************************/
+    maxInABCs = max(arr[0]); //failed to notice lowest value could be negative. /*solved*/
     
     for (unsigned i = 0; i < elements; i++){
         if (max(arr[i]) > maxInABCs) maxInABCs = max(arr[i]);

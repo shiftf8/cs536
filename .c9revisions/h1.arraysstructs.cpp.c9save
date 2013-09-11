@@ -1342,3 +1342,12 @@
 {"ts":1378774456883,"patch":[[{"diffs":[[0,"egative."],[1," /*******************************************/"],[0,"\n    \n  "]],"start1":6452,"start2":6452,"length1":16,"length2":62}]],"length":8293,"saved":false}
 {"contributors":[],"silentsave":true,"ts":1378776359720,"patch":[[{"diffs":[[0,"#include"],[-1," "],[0,"<climits"]],"start1":54,"start2":54,"length1":17,"length2":16},{"diffs":[[0,"#include"],[-1," "],[0,"<iostrea"]],"start1":72,"start2":72,"length1":17,"length2":16}]],"length":8291,"saved":false}
 {"ts":1378776360269,"patch":[[{"diffs":[[0,"#include"],[-1," "],[0,"<string>"]],"start1":91,"start2":91,"length1":17,"length2":16}]],"length":8290,"saved":false}
+{"ts":1378779092477,"patch":[[{"diffs":[[0,"ONG_MIN<"],[-1,"double"],[1,"int"],[0,">; //fai"]],"start1":6390,"start2":6390,"length1":22,"length2":19}]],"length":8287,"saved":false}
+{"ts":1378779146628,"patch":[[{"diffs":[[0,"s = "],[-1,"LONG_MIN<int>"],[1,"max"],[0,"; //"]],"start1":6385,"start2":6385,"length1":21,"length2":11}]],"length":8277,"saved":false}
+{"ts":1378779147661,"patch":[[{"diffs":[[0,"Cs = max"],[1,"()"],[0,"; //fail"]],"start1":6384,"start2":6384,"length1":16,"length2":18}]],"length":8279,"saved":false}
+{"ts":1378779149052,"patch":[[{"diffs":[[0,"s = max("],[1,"arr"],[0,"); //fai"]],"start1":6385,"start2":6385,"length1":16,"length2":19}]],"length":8282,"saved":false}
+{"ts":1378779150158,"patch":[[{"diffs":[[0," max(arr"],[1,"[]"],[0,"); //fai"]],"start1":6388,"start2":6388,"length1":16,"length2":18}]],"length":8284,"saved":false}
+{"ts":1378779152181,"patch":[[{"diffs":[[0,"max(arr["],[1,"0"],[0,"]); //fa"]],"start1":6389,"start2":6389,"length1":16,"length2":17}]],"length":8285,"saved":false}
+{"ts":1378779210342,"patch":[[{"diffs":[[0,"13\n\n"],[-1,"#include<climits>\n"],[0,"#inc"]],"start1":50,"start2":50,"length1":26,"length2":8}]],"length":8267,"saved":false}
+{"ts":1378779236592,"patch":[[{"diffs":[[0,". /*"],[-1,"******************************************"],[1,"solved"],[0,"*/\n "]],"start1":6109,"start2":6109,"length1":50,"length2":14}]],"length":8231,"saved":false}
+{"ts":1378779242165,"patch":[[{"diffs":[[0,". /*"],[-1,"*****************************************"],[1,"solved"],[0,"*/\n "]],"start1":6397,"start2":6397,"length1":49,"length2":14}]],"length":8196,"saved":false}
