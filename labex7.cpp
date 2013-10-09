@@ -38,7 +38,7 @@ int main(){
     cout << a.remove() << endl;
     cout << a.remove() << endl;
     cout << a.remove() << endl;
-    a.add("face");
+    a.add("fake");
     cout << a.getUsed() << endl;
     cout << a.remove() << endl;
     cout << a.remove() << endl;
@@ -73,7 +73,7 @@ unsigned Queue::getUsed() const{
 }
 
 bool die( const string & msg ){
-	//cerr <<endl <<"Fatal error: " <<msg << endl;
+	//cerr <<endl <<"Fatal error: " <<msg <<endl;
 	//exit( EXIT_FAILURE );
 
 	cout << endl << "Fatal error: " << msg << endl;
