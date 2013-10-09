@@ -23,18 +23,27 @@ bool die( const string & msg );
 
 int main(){
     Queue a = Queue();
-    cout << a.getUsed() << endl;
-    
     a.add("a");
-    cout << a.remove() << endl;
+    cout << a.getUsed() << endl;
     a.add("b");
     a.add("c");
     a.add("d");
+    cout << a.remove() << endl;
+    cout << a.remove() << endl;
+    cout << a.getUsed() << endl;
     a.add("e");
     a.add("f");
-    //a.add("break");
+    a.add("break");
     cout << a.getUsed() << endl;
     cout << a.remove() << endl;
+    cout << a.remove() << endl;
+    cout << a.remove() << endl;
+    a.add("face");
+    cout << a.getUsed() << endl;
+    cout << a.remove() << endl;
+    cout << a.remove() << endl;
+    cout << a.remove() << endl;
+    cout << a.getUsed() << endl;
     
     //system("pause");
     return 0;
@@ -47,7 +56,7 @@ Queue::Queue(){
 Queue &Queue::add( const string & s ){
     if (used == 5) die("Queue overflow.");
 
-    data[(first + 1) % 5] = s;
+    data[(first + used) % 5] = s;
     used++;
     return *this;
 }
