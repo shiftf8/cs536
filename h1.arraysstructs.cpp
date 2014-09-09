@@ -246,7 +246,7 @@ void get( unsigned & n, char & c, double a[nArr], const ABC & x ){
     cout << "}}" << endl;
 */
 }
-void set ( ABC x[], const unsigned n[], const char c[], const double a[][nArr], unsigned elements ){
+void set( ABC x[], const unsigned n[], const char c[], const double a[][nArr], unsigned elements ){
     for (unsigned i = 0; i < elements; i++){
         set(x[i], n[i], c[i], a[i]);
 
@@ -268,7 +268,7 @@ void get( unsigned n[], char c[], double a[][nArr], const ABC x[], unsigned elem
             a[i][j] = x[i].a[j];
         }
 
-        //test code
+/*        //test code
         cout << "{" << x[i].n << ", \'" << x[i].c << "\', {";
         for (unsigned j = 0; j < nArr; j++){
             cout << x[i].a[j];
