@@ -7,6 +7,7 @@
 #include<string>
 using namespace std;
 
+//I defined struct ABC arr length to nArr to better test how robust my functions are
 #define nArr 3
 struct ABC{
     unsigned n;
@@ -211,7 +212,7 @@ void show( const ABC arr[], unsigned elements ){
 }
 double max( const ABC & x ){
     double maxInABC;
-    maxInABC = x.a[0]; //failed to notice lowest value could be negative. /*solved*/
+    maxInABC = x.a[0]; // I failed to notice lowest value could be negative. /*solved*/
     
     for (unsigned i = 0; i < nArr; i++){
         if (x.a[i] > maxInABC) maxInABC = x.a[i];
@@ -220,7 +221,7 @@ double max( const ABC & x ){
 }
 double max( const ABC arr[], unsigned elements ){
     double maxInABCs;
-    maxInABCs = max(arr[0]); //failed to notice lowest value could be negative. /*solved*/
+    maxInABCs = max(arr[0]); // I failed to notice lowest value could be negative. /*solved*/
     
     for (unsigned i = 0; i < elements; i++){
         if (max(arr[i]) > maxInABCs) maxInABCs = max(arr[i]);
