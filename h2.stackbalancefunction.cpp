@@ -3,7 +3,6 @@
 //Hart
 //09/22/14
 
-#include <cstdio>
 #include <iostream>
 #include <string>
 using namespace std;
@@ -26,6 +25,7 @@ bool balanced( const string & line );
 bool die( const string & msg );
 
 int main() {
+    cout << balanced("(g[h{([{}])i}])") << endl;
 
     //system("pause");
     return 0;
@@ -51,7 +51,28 @@ unsigned elements( const Stack & stack ) {
 }
 
 bool balanced( const string & line ) {
+    Stack stackToCheck;
     
+    initialize(stackToCheck);
+    for (unsigned i = 0; i < line.length(); i++) {
+        if (line[i] == '(') push(stackToCheck, "(");
+        if (line[i] == '[') push(stackToCheck, "[");
+        if (line[i] == '{') push(stackToCheck, "{");
+        if (line[i] == ')') {
+            if (top(stackToCheck) == "(") pop(stackToCheck);
+            else return false;
+        }
+        if (line[i] == ']') {
+            if (top(stackToCheck) == "[") pop(stackToCheck);
+            else return false;
+        }
+        if (line[i] == '}') {
+            if (top(stackToCheck) == "{") pop(stackToCheck);
+            else return false;
+        }
+    }
+    if (elements(stackToCheck) == 0) return true;
+    return false;
 }
 
 bool die( const string & msg ) {
