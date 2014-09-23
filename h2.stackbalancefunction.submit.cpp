@@ -7,7 +7,7 @@
 #include <string>
 using namespace std;
 
-#define STACK_SIZE 5
+#define STACK_SIZE 8
 
 struct Stack{
     string data[ STACK_SIZE ];
@@ -27,7 +27,7 @@ bool die( const string & msg );
 int main() {
     string a[] = {"(sldkj[slkdfjk{slkdfjsl(sldkjf(lkjsd)slkdfj)sldkfj}slkdjf]sldkfj)", "(((([[[[]]]]{{{{}}}}))))", "([)]", ""};
     
-    for (int i = 0; i < 4; i++) cout << balanced(a[i]) << endl;
+    for (int i = 0; i < 4; i++) cout << ((balanced(a[i])) ? "Balanced" : "NOT Balanced") << endl;
 
     //system("pause");
     return 0;
