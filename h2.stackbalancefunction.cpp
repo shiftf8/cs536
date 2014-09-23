@@ -1,14 +1,15 @@
-//Lamog, Rob
-//Homework #3
+//Lamog, Robert
+//Homework #2
 //Hart
-//09/16/13
+//09/22/14
 
 #include <iostream>
 #include <string>
 using namespace std;
 
+#define STACK_SIZE 5
+
 struct Stack{
-    static const STACK_SIZE = 5;
     string data[ STACK_SIZE ];
 	unsigned elements;
 };	//	struct Stack
@@ -49,7 +50,13 @@ unsigned elements( const Stack & stack ){
 }
 
 bool balanced( const string & line ){
+    Stack stackToCheck;
+    unsigned i = 0;
     
+    initialize(stackToCheck);
+    while (getc(line[i]) != '\n'){
+        push(stackToCheck, line[i++]);
+    }
 }
 
 bool die( const string & msg ){
