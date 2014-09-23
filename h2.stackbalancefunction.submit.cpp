@@ -25,6 +25,9 @@ bool balanced( const string & line );
 bool die( const string & msg );
 
 int main() {
+    string a[] = {"(sldkj[slkdfjk{slkdfjsl(sldkjf(lkjsd)slkdfj)sldkfj}slkdjf]sldkfj)", "(((([[[[]]]]{{{{}}}}))))", "([)]", ""};
+    
+    for (int i = 0; i < 4; i++) cout << balanced(a[i]) << endl;
 
     //system("pause");
     return 0;
