@@ -4,6 +4,7 @@
 //09/29/14
 
 #include <iostream>
+#include <math.h>
 #include <sstream>
 using namespace std;
 
@@ -23,16 +24,15 @@ private:
 }; // class Stack
 
 bool calculate( double & result, const string & expression );
-bool isNum( const string & token);
 
 bool die( const string & msg );
 
 int main() {
     double result = 0.0;
-    string expression = "1.1 2.2 *";
+    string a[] = {"1.1	2.2	+", "1.1	2.2	+	+", "4	3	0	/	*", "1	2	3	4	sqrt	+	*	/"};
     
-    cout << calculate(result, expression) << " " << result << endl;
-    
+    for (int i = 0; i < 4; i++) cout << ((calculate(result, a[i])) ? "\t" : "bogus") << endl;
+
     return 0;
 } //main()
 
@@ -41,15 +41,15 @@ Stack::Stack(){
     myElements = 0;
 }
 double Stack::pop(){
-    if (myElements == 0) die("stack underflow.");
+    if (myElements == 0) die("Stack underflow.");
     return myData[--myElements];
 }
 double Stack::top() const {
-    if (myElements == 0) die("stack underflow.");
+    if (myElements == 0) die("Stack underflow.");
     return myData[myElements - 1];
 }
 Stack & Stack::push( double item ) {
-    if (myElements == STACK_SIZE) die("stack overflow.");
+    if (myElements == STACK_SIZE) die("Stack overflow.");
     myData[myElements++] = item;
 }
 unsigned Stack::elements() const {
@@ -61,23 +61,51 @@ bool calculate( double & result, const string & expression ){
     istringstream sin(expression);
     
     for (string token; sin >> token;) {
-        double val;
+        double a, b, val;
         istringstream str(token);
         
         if (str >> val) st.push(val);
-        cout << st.elements() << endl;
+        //cout << st.elements() << endl;
         if (token == "*") {
-            double b = st.pop();
-            double a = st.pop();
+            if (st.elements() <= 1) return false;
+            b = st.pop();
+            a = st.pop();
             result = a * b;
-            return true;
+            st.push(result);
+        }
+        if (token == "/") {
+            if ((st.elements() <= 1) || (st.top() == 0)) return false;
+            b = st.pop();
+            a = st.pop();
+            result = a / b;
+            st.push(result);
+        }
+        if (token == "+") {
+            if (st.elements() <= 1) return false;
+            b = st.pop();
+            a = st.pop();
+            result = a + b;
+            st.push(result);
+        }
+        if (token == "-") {
+            if (st.elements() <= 1) return false;
+            b = st.pop();
+            a = st.pop();
+            result = a - b;
+            st.push(result);
+        }
+        if (token == "sqrt") {
+            if ((st.elements() < 1) || (st.top() < 0)) return false;
+            result = sqrt(st.pop());
+            st.push(result);
         }
     }
     
+    if (st.elements() == 1) {
+        cout << result;
+        return true;
+    }
     return false;
-}
-bool isNum( const string & token) {
-    return true;
 }
 
 bool die( const string & msg ) {
