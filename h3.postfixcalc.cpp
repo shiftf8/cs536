@@ -23,14 +23,15 @@ private:
 }; // class Stack
 
 bool calculate( double & result, const string & expression );
+bool isNum( const string & token);
 
 bool die( const string & msg );
 
 int main() {
     double result = 0.0;
-    string expression = "1.1 2.2 +";
+    string expression = "1.1 2.2 *";
     
-    calculate(result, expression);
+    cout << calculate(result, expression) << " " << result << endl;
     
     return 0;
 } //main()
@@ -61,12 +62,22 @@ bool calculate( double & result, const string & expression ){
     
     for (string token; sin >> token;) {
         double val;
+        istringstream str(token);
         
-        if (sin >> val) st.push(val);
+        if (str >> val) st.push(val);
         cout << st.elements() << endl;
+        if (token == "*") {
+            double b = st.pop();
+            double a = st.pop();
+            result = a * b;
+            return true;
+        }
     }
     
     return false;
+}
+bool isNum( const string & token) {
+    return true;
 }
 
 bool die( const string & msg ) {
