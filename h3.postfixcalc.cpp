@@ -59,13 +59,13 @@ unsigned Stack::elements() const {
 
 bool calculate( double & result, const string & expression ){
     Stack st;
-    istringstream sin(expression);
+    istringstream strin(expression);
     
-    for (string token; sin >> token;) {
+    for (string token; strin >> token;) {
         double a, b, val;
-        istringstream str(token);
+        istringstream wordin(token);
         
-        if (str >> val) st.push(val);
+        if (wordin >> val) st.push(val);
         //cout << st.elements() << endl;
         if (token == "*") {
             if (st.elements() <= 1) return false;
