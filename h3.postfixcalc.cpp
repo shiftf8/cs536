@@ -51,6 +51,7 @@ double Stack::top() const {
 Stack & Stack::push( double item ) {
     if (myElements == STACK_SIZE) die("Stack overflow.");
     myData[myElements++] = item;
+    return *this;
 }
 unsigned Stack::elements() const {
     return myElements;
