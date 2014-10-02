@@ -3,6 +3,7 @@
 //Hart
 //09/29/14
 
+#include <cstdio>
 #include <iostream>
 #include <math.h>
 #include <sstream>
@@ -31,16 +32,16 @@ int main() {
     double result = 0.0;
     string a[] = {"1.1	2.2	+", "1.1	2.2	+	+", "4	3	0	/	*", "1	2	3	4	sqrt	+	*	/"};
     
-    for (int i = 0; i < 4; i++) cout << ((calculate(result, a[i])) ? "\t" : "bogus") << endl;
+    for (int i = 0; i < 4; i++) (calculate(result, a[i])) ? cout <<result <<endl : cout <<"bogus" <<endl;
 
     return 0;
 } //main()
 
-Stack::Stack(){
+Stack::Stack() {
     myData[ STACK_SIZE ];
     myElements = 0;
 }
-double Stack::pop(){
+double Stack::pop() {
     if (myElements == 0) die("Stack underflow.");
     return myData[--myElements];
 }
@@ -57,7 +58,7 @@ unsigned Stack::elements() const {
     return myElements;
 }
 
-bool calculate( double & result, const string & expression ){
+bool calculate( double & result, const string & expression ) {
     Stack st;
     istringstream strin(expression);
     
@@ -102,10 +103,7 @@ bool calculate( double & result, const string & expression ){
         }
     }
     
-    if (st.elements() == 1) {
-        cout << result;
-        return true;
-    }
+    if (st.elements() == 1) return true;
     return false;
 }
 
