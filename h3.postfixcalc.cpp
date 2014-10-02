@@ -108,9 +108,9 @@ bool calculate( double & result, const string & expression ) {
 }
 
 bool die( const string & msg ) {
-	//cerr <<endl <<"Fatal error: " <<msg << endl;
-	//exit( EXIT_FAILURE );
+    //cerr <<endl <<"Fatal error: " <<msg << endl;
+    //exit( EXIT_FAILURE );
 
-	cout << endl << "Fatal error: " << msg << endl;
-	return true;
+    cout << endl << "Fatal error: " << msg << endl;
+    return true;
 }
