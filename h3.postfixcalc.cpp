@@ -3,7 +3,6 @@
 //Hart
 //09/29/14
 
-#include <cstdio>
 #include <iostream>
 #include <math.h>
 #include <sstream>
