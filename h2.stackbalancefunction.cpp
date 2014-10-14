@@ -47,6 +47,7 @@ string top( const Stack & stack ) {
 void push( Stack & stack, const string & item ) {
     if (stack.elements == STACK_SIZE) die("stack overflow");
     stack.data[stack.elements++] = item;
+    return *this;
 }
 unsigned elements( const Stack & stack ) {
     return stack.elements;
