@@ -71,89 +71,130 @@ bool calculator( double & result, const string & line ) {
     Stack<double> doubleStack;
     Stack<string> operationStack;
     bool isExpectingNum = true;
-    unsigned operationPrecedence = 0; //0 = lowest precedence. 3 = highest precedence.
 
     if (balanced(line)) {
         istringstream sin(line);
         for(string token; sin >>token; ) {
             double a, b, value;
-            string operation;
+            unsigned int operationPrecedence = 0;
+            
             istringstream wordin(token); //quick and dirty is number check.
             
+            if (!isExpectingNum) {
+                if (wordin >>value) return false;
+                if (token == "^") {
+                    operationStack.push(token);
+                    operationPrecedence = 2;
+                    isExpectingNum = true;
+                }
+                if (token == "*") {
+                    operationStack.push(token);
+                    operationPrecedence = 1;
+                    isExpectingNum = true;
+                }
+                if (token == "/") {
+                    operationStack.push(token);
+                    operationPrecedence = 1;
+                    isExpectingNum = true;
+                }
+                if (token == "+") {
+                    operationStack.push(token);
+                    operationPrecedence = 0;
+                    isExpectingNum = true;
+                }
+                if (token == "-") {
+                    operationStack.push(token);
+                    operationPrecedence = 0;
+                    isExpectingNum = true;
+                }
+                if (token == ")") {
+                    while (operationStack.top() != "(") {
+                        if (operationStack.top() == "^") {
+                            b = doubleStack.pop();
+                            a = doubleStack.pop();
+                            if (a >= 0) return false;
+                            operationStack.pop();
+                            result = pow(a, b);
+                            doubleStack.push(result);
+                        }
+                        if (operationStack.top() == "*") {
+                            if (operationStack.size() > 1)
+                            b = doubleStack.pop();
+                            a = doubleStack.pop();
+                            operationStack.pop();
+                            result = a * b;
+                            doubleStack.push(result);
+                        }
+                        if (operationStack.top() == "/") {
+                            b = doubleStack.pop();
+                            a = doubleStack.pop();
+                            if (a == 0) return false;
+                            operationStack.pop();
+                            result = a / b;
+                            doubleStack.push(result);
+                        }
+                        if (operationStack.top() == "+") {
+                            b = doubleStack.pop();
+                            a = doubleStack.pop();
+                            operationStack.pop();
+                            result = a + b;
+                            doubleStack.push(result);
+                        }
+                        if (operationStack.top() == "-") {
+                            b = doubleStack.pop();
+                            a = doubleStack.pop();
+                            operationStack.pop();
+                            result = a - b;
+                            doubleStack.push(result);
+                        }
+                    }
+                }
+            }
             if (isExpectingNum) {
                 if (wordin >>value) {
                     doubleStack.push(value);
                     isExpectingNum = false;
                 } else if (token == "(") operationStack.push(token);
-                else return false;
-                
-                if (operationStack.size() > 0 && doubleStack.size() >= 2) {
-                    if (operationStack.top() == "^") operationPrecedence = 3;
-                    if (operationStack.top() == "*" || operationStack.top() == "/") operationPrecedence = 2;
-                    if (operationStack.top() == "+" || operationStack.top() == "-") operationPrecedence = 1;
-                }
-                    // if (operationStack.top() == "^") {
-                    //     b = doubleStack.pop();
-                    //     a = doubleStack.pop();
-                    //     if (a >= 0) return false;
-                    //     operationStack.pop();
-                    //     result = pow(a, b);
-                    //     doubleStack.push(result);
-                    // }
-                    // if (operationStack.top() == "*") {
-                    //     if (operationStack.size() > 1)
-                    //     b = doubleStack.pop();
-                    //     a = doubleStack.pop();
-                    //     operationStack.pop();
-                    //     result = a * b;
-                    //     doubleStack.push(result);
-                    // }
-                    // if (operationStack.top() == "/") {
-                    //     b = doubleStack.pop();
-                    //     a = doubleStack.pop();
-                    //     if (a == 0) return false;
-                    //     operationStack.pop();
-                    //     result = a / b;
-                    //     doubleStack.push(result);
-                    // }
-                    // if (operationStack.top() == "+") {
-                    //     b = doubleStack.pop();
-                    //     a = doubleStack.pop();
-                    //     operationStack.pop();
-                    //     result = a + b;
-                    //     doubleStack.push(result);
-                    // }
-                    // if (operationStack.top() == "-") {
-                    //     b = doubleStack.pop();
-                    //     a = doubleStack.pop();
-                    //     operationStack.pop();
-                    //     result = a - b;
-                    //     doubleStack.push(result);
-                    // }
-            }
-            if (!isExpectingNum) {
-                if (wordin >>value) return false;
-                // if (token == ")") operationStack.push(token);
-                if (token == "^") {
-                    operationStack.push(token);
-                    isExpectingNum = true;
-                }
-                if (token == "*") {
-                    operationStack.push(token);
-                    isExpectingNum = true;
-                }
-                if (token == "/") {
-                    operationStack.push(token);
-                    isExpectingNum = true;
-                }
-                if (token == "+") {
-                    operationStack.push(token);
-                    isExpectingNum = true;
-                }
-                if (token == "-") {
-                    operationStack.push(token);
-                    isExpectingNum = true;
-                }
+                // else return false;
+
+                    if (operationStack.top() == "^") {
+                        b = doubleStack.pop();
+                        a = doubleStack.pop();
+                        if (a >= 0) return false;
+                        operationStack.pop();
+                        result = pow(a, b);
+                        doubleStack.push(result);
+                    }
+                    if (operationStack.top() == "*") {
+                        if (operationStack.size() > 1)
+                        b = doubleStack.pop();
+                        a = doubleStack.pop();
+                        operationStack.pop();
+                        result = a * b;
+                        doubleStack.push(result);
+                    }
+                    if (operationStack.top() == "/") {
+                        b = doubleStack.pop();
+                        a = doubleStack.pop();
+                        if (a == 0) return false;
+                        operationStack.pop();
+                        result = a / b;
+                        doubleStack.push(result);
+                    }
+                    if (operationStack.top() == "+") {
+                        b = doubleStack.pop();
+                        a = doubleStack.pop();
+                        operationStack.pop();
+                        result = a + b;
+                        doubleStack.push(result);
+                    }
+                    if (operationStack.top() == "-") {
+                        b = doubleStack.pop();
+                        a = doubleStack.pop();
+                        operationStack.pop();
+                        result = a - b;
+                        doubleStack.push(result);
+                    }
             }
         }
     } else return false;
