@@ -30,32 +30,32 @@ bool die( const string & msg );
 int main() {
     List1 aList;
     
-    aList.addFront("michael");
     aList.addFront("george");
     aList.addFront("henry");
+    aList.addFront("michael");
     // aList.show();
     // cout <<aList.size() <<endl;
     // cout <<endl;
-    // aList.addBack("xavier");
+    aList.addBack("xavier");
     // aList.show();
     // cout <<aList.size() <<endl;
     // cout <<endl;
-    // aList.addBack("lamog");
+    aList.addBack("lamog");
     // aList.show();
     // cout <<aList.size() <<endl;
     // cout <<endl;
-    // aList.addFront("!!!!!");
+    aList.addBack("!!!!!");
     aList.show();
     cout <<aList.size() <<endl;
     
-    cout <<endl;
-    aList.removeFront();
-    aList.show();
-    cout <<aList.size() <<endl;
+    // cout <<endl;
+    // aList.removeFront();
+    // aList.show();
+    // cout <<aList.size() <<endl;
 
-    aList.removeFront();
-    aList.show();
-    cout <<aList.size() <<endl;
+    // aList.removeFront();
+    // aList.show();
+    // cout <<aList.size() <<endl;
     // aList.removeBack();
     // aList.show();
     
@@ -68,56 +68,49 @@ List1::List1() {
 }
 void List1::addFront( const string & item ) {
     try {
-        Node * tmpHead = head;
+        Node * aNode = new Node();
         
-        if (tmpHead != NULL) {
-            Node * aNode = new Node;
-            
-            aNode->data = item;
-            aNode->next = head;
-            head = aNode;
-        } else {
-            head = new Node;
-        }
-    } catch (exception& e) {
-        cout <<"Standard exception: " <<e.what() <<endl;
+        aNode->data = item;
+        aNode->next = head;
+        head = aNode;
+    } catch (const bad_alloc &) {
+        die("addFront: Bad alloc.");
     }
 }
 void List1::addBack( const string & item ) {
     try {
-        Node * aNode = new Node;
+        Node * aNode = new Node();
         Node * tmpHead = head;
+        
+        while (tmpHead->next != NULL) tmpHead = tmpHead->next;
+        tmpHead->next = aNode;
 
         aNode->data = item;
         aNode->next = NULL;
         
-        if (tmpHead != NULL) {
-            while (tmpHead->next != NULL) tmpHead = tmpHead->next;
-            tmpHead->next = aNode;
-        } else head = aNode;
-        
-        // cout <<tmpHead <<endl
-        //      <<tmpHead->data <<endl
-        //      <<tmpHead->next <<endl
-        //      <<aNode <<endl
-        //      <<aNode->data <<endl
-        //      <<aNode->next <<endl <<endl;
-    } catch (exception& e) {
-        cout <<"Standard exception: " <<e.what() <<endl;
+        delete tmpHead;
+        cout <<tmpHead <<endl
+             <<tmpHead->data <<endl
+             <<tmpHead->next <<endl
+             <<aNode <<endl
+             <<aNode->data <<endl
+             <<aNode->next <<endl <<endl;
+    } catch (const bad_alloc &) {
+        die("addBack: Bad alloc.");
     }
 }
 string List1::removeFront() {
     if (empty()) die("List is empty.");
     
     Node * tmpHead = head;
-    
-    if (tmpHead->next == NULL) {
-        delete tmpHead;
-        head = NULL;
-    }
+    head = tmpHead->next;
 }
 string List1::removeBack() {
     if (empty()) die("List is empty.");
+    Node * tmpHead = head;
+    
+    while (tmpHead->next != NULL) tmpHead = tmpHead->next;
+    tmpHead = NULL;
 }
 bool List1::empty() const {
     if (head == NULL) return true;
