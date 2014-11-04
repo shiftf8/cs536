@@ -18,6 +18,7 @@ public:
     unsigned size() const;
     void show() const;
 private:
+    unsigned LIST_SIZE;
     struct Node{
         string data;
         Node * next;
@@ -36,15 +37,15 @@ int main() {
     // aList.show();
     // cout <<aList.size() <<endl;
     // cout <<endl;
-    aList.addBack("xavier");
+    // aList.addBack("xavier");
     // aList.show();
     // cout <<aList.size() <<endl;
     // cout <<endl;
-    aList.addBack("lamog");
+    // aList.addBack("lamog");
     // aList.show();
     // cout <<aList.size() <<endl;
     // cout <<endl;
-    aList.addBack("!!!!!");
+    // aList.addBack("!!!!!");
     aList.show();
     cout <<aList.size() <<endl;
     
@@ -53,9 +54,9 @@ int main() {
     aList.show();
     cout <<aList.size() <<endl;
 
-    aList.removeFront();
-    aList.show();
-    cout <<aList.size() <<endl;
+    // aList.removeFront();
+    // aList.show();
+    // cout <<aList.size() <<endl;
     // aList.removeBack();
     // aList.show();
     
@@ -63,52 +64,45 @@ int main() {
     return 0;
 }
 
-List1::List1() {
-    head = NULL;
-}
+List1::List1(): head(NULL), LIST_SIZE(0) {}
 void List1::addFront( const string & item ) {
+    Node * newNode = NULL;
+    
     try {
-        Node * aNode = new Node();
-        
-        aNode->data = item;
-        aNode->next = head;
-        head = aNode;
-        
-        // cout <<head <<endl
-        //      <<aNode->data <<endl
-        //      <<aNode->next <<endl <<endl;
+        newNode = new Node;
     } catch (const bad_alloc &) {
         die("addFront: Bad alloc.");
     }
+    
+    newNode->data = item;
+    newNode->next = head;
+    head = newNode;
+    LIST_SIZE++;
 }
 void List1::addBack( const string & item ) {
     try {
-        Node * tmpHead = head;
+        Node * aNode = head;
         
-        if (head != NULL) {
-            while (tmpHead->next != NULL) tmpHead = tmpHead->next;
-        }
-        tmpHead->next = new Node;
-        tmpHead = tmpHead->next;
-        tmpHead->data = item;
-        tmpHead->next = NULL;
+        while (aNode != NULL) aNode = aNode->next;
         
-        // cout <<tmpHead <<endl
-        //      <<tmpHead->data <<endl
-        //      <<tmpHead->next <<endl
-        //      <<aNode <<endl
-        //      <<aNode->data <<endl
-        //      <<aNode->next <<endl <<endl;
+        aNode->next = new Node;
+        aNode = aNode->next;
+        aNode->data = item;
+        aNode->next = NULL;
+        
+        LIST_SIZE++;
     } catch (const bad_alloc &) {
         die("addBack: Bad alloc.");
     }
 }
 string List1::removeFront() {
-    if (empty()) die("List is empty.");
+    if (empty()) die("removeFront: List is empty.");
     
-    Node * tmpHead = head->next;
-    delete head;
-    head = tmpHead;
+    Node * temp = head;
+    head = head->next;
+    delete temp;
+
+    LIST_SIZE--;
 }
 string List1::removeBack() {
     if (empty()) die("List is empty.");
@@ -122,25 +116,17 @@ bool List1::empty() const {
     return false;
 }
 unsigned List1::size() const {
-    unsigned counter = 0;
-    Node * tmpHead = head;
-    
-    while (tmpHead != NULL) {
-        tmpHead = tmpHead->next;
-        counter++;
-    }
-    
-    return counter;
+    return LIST_SIZE;
 }
 void List1::show() const {
-    Node * tmpHead = head;
-    
-    while (tmpHead != NULL) {
-        cout <<tmpHead <<endl
-             <<tmpHead->data <<endl
-             <<tmpHead->next <<endl;
-        // cout <<tmpHead->data <<endl;
-        tmpHead = tmpHead->next;
+    Node * current = head;
+
+    while (current != NULL) {
+        // cout <<current <<endl
+        //      <<current->data <<endl
+        //      <<current->next <<endl;
+        cout <<current->data <<endl;
+        current = current->next;
     }
 }
 
