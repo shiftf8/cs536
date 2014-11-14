@@ -119,7 +119,7 @@ string List1::removeFront() {
     Node * tempHead = head->next;
     string ret = head->data;
 
-    if (empty()) die("removeFront: List is empty.");
+    if (empty()) die("removeFront: List is already empty.");
 
     delete head;
     head = tempHead;
@@ -132,7 +132,7 @@ string List1::removeBack() {
     Node * newLastNode = NULL, * currentLastNode = head;
     string ret = "";
     
-    if (empty()) die("removeBack: List is empty.");
+    if (empty()) die("removeBack: List is already empty.");
     
     while (currentLastNode->next != NULL) {
         if (currentLastNode->next->next == NULL) newLastNode = currentLastNode;
