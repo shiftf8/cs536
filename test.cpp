@@ -3,8 +3,10 @@
 using namespace std;
 
 int main() {
-    int * ptr1 = new int;
-    delete ptr1;
+    string * a = NULL;
+    int b = 1;
+    
+    if (a) cout <<"BANG" <<endl;
     
     return 0;
 }

@@ -3,6 +3,7 @@
 //Hart
 //10/20/14
 
+#include <cstdlib>
 #include <iostream>
 #include <string>
 using namespace std;
@@ -34,18 +35,19 @@ int main() {
     aList.addFront("george");
     aList.addFront("henry");
     aList.addFront("michael");
-    // aList.show();
-    // cout <<aList.size() <<endl;
-    // cout <<endl;
-    // aList.addBack("xavier");
-    // aList.show();
-    // cout <<aList.size() <<endl;
-    // cout <<endl;
-    // aList.addBack("lamog");
-    // aList.show();
-    // cout <<aList.size() <<endl;
-    // cout <<endl;
-    // aList.addBack("!!!!!");
+    aList.show();
+    cout <<aList.size() <<endl;
+
+    cout <<endl;
+    aList.addBack("xavier");
+    aList.show();
+    cout <<aList.size() <<endl;
+    cout <<endl;
+    aList.addBack("lamog");
+    aList.show();
+    cout <<aList.size() <<endl;
+    cout <<endl;
+    aList.addBack("!!!!!");
     aList.show();
     cout <<aList.size() <<endl;
     
@@ -53,12 +55,26 @@ int main() {
     aList.removeFront();
     aList.show();
     cout <<aList.size() <<endl;
-
-    // aList.removeFront();
-    // aList.show();
-    // cout <<aList.size() <<endl;
+    aList.removeFront();
+    aList.show();
+    cout <<aList.size() <<endl;
+    
+    cout <<endl;
+    aList.removeBack();
+    aList.show();
+    cout <<aList.size() <<endl;
+    aList.removeBack();
+    aList.show();
+    cout <<aList.size() <<endl;
+    aList.removeBack();
+    aList.show();
+    cout <<aList.size() <<endl;
+    aList.removeBack();
+    aList.show();
+    cout <<aList.size() <<endl;
     // aList.removeBack();
     // aList.show();
+    // cout <<aList.size() <<endl;
     
 
     return 0;
@@ -80,36 +96,53 @@ void List1::addFront( const string & item ) {
     LIST_SIZE++;
 }
 void List1::addBack( const string & item ) {
+    Node * newNode = NULL;
+    
     try {
-        Node * aNode = head;
-        
-        while (aNode != NULL) aNode = aNode->next;
-        
-        aNode->next = new Node;
-        aNode = aNode->next;
-        aNode->data = item;
-        aNode->next = NULL;
-        
-        LIST_SIZE++;
+        newNode = new Node;
     } catch (const bad_alloc &) {
         die("addBack: Bad alloc.");
     }
+    
+    Node * tempHead = head;
+    while (tempHead->next != NULL) tempHead = tempHead->next;
+    
+    tempHead->next = newNode;
+    newNode->data = item;
+    newNode->next = NULL;
+    LIST_SIZE++;
 }
 string List1::removeFront() {
     if (empty()) die("removeFront: List is empty.");
     
-    Node * temp = head;
-    head = head->next;
-    delete temp;
+    string ret = head->data;
 
+    Node * tempHead = head->next;
+    delete head;
+    head = tempHead;
+    
     LIST_SIZE--;
+    
+    return ret;
 }
 string List1::removeBack() {
-    if (empty()) die("List is empty.");
-    Node * tmpHead = head;
+    if (empty()) die("removeBack: List is empty.");
     
-    while (tmpHead->next != NULL) tmpHead = tmpHead->next;
-    tmpHead = NULL;
+    string ret = "";
+    
+    Node * newLastNode = NULL, * currentLastNode = head;
+    while (currentLastNode->next != NULL) {
+        if (currentLastNode->next->next == NULL) newLastNode = currentLastNode;
+        currentLastNode = currentLastNode->next;
+    }
+    ret = currentLastNode->data;
+    delete currentLastNode;
+    if (newLastNode) newLastNode->next = NULL;
+    else head = NULL;
+    
+    LIST_SIZE--;
+    
+    return ret;
 }
 bool List1::empty() const {
     if (head == NULL) return true;
@@ -122,18 +155,14 @@ void List1::show() const {
     Node * current = head;
 
     while (current != NULL) {
-        // cout <<current <<endl
-        //      <<current->data <<endl
-        //      <<current->next <<endl;
-        cout <<current->data <<endl;
+        cout <<current <<endl
+             <<current->data <<endl
+             <<current->next <<endl;
         current = current->next;
     }
 }
 
 bool die( const string & msg ) {
-    // cerr <<endl <<"Fatal error: " <<msg <<endl;
-    // exit( EXIT_FAILURE );
-
-    cout <<endl <<"Fatal error: " <<msg <<endl;
-    return true;
+    cerr <<endl <<"Fatal error: " <<msg <<endl;
+    exit( EXIT_FAILURE );
 }
