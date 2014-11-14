@@ -93,10 +93,11 @@ void List1::addFront( const string & item ) {
     newNode->data = item;
     newNode->next = head;
     head = newNode;
+    
     LIST_SIZE++;
 }
 void List1::addBack( const string & item ) {
-    Node * newNode = NULL;
+    Node * newNode = NULL, * tempHead = head;
     
     try {
         newNode = new Node;
@@ -104,20 +105,22 @@ void List1::addBack( const string & item ) {
         die("addBack: Bad alloc.");
     }
     
-    Node * tempHead = head;
-    while (tempHead->next != NULL) tempHead = tempHead->next;
-    
-    tempHead->next = newNode;
+    if (head == NULL) head = newNode;
+    else {
+        while (tempHead->next != NULL) tempHead = tempHead->next;
+        tempHead->next = newNode;
+    }
     newNode->data = item;
     newNode->next = NULL;
+    
     LIST_SIZE++;
 }
 string List1::removeFront() {
-    if (empty()) die("removeFront: List is empty.");
-    
+    Node * tempHead = head->next;
     string ret = head->data;
 
-    Node * tempHead = head->next;
+    if (empty()) die("removeFront: List is empty.");
+
     delete head;
     head = tempHead;
     
@@ -126,11 +129,11 @@ string List1::removeFront() {
     return ret;
 }
 string List1::removeBack() {
-    if (empty()) die("removeBack: List is empty.");
-    
+    Node * newLastNode = NULL, * currentLastNode = head;
     string ret = "";
     
-    Node * newLastNode = NULL, * currentLastNode = head;
+    if (empty()) die("removeBack: List is empty.");
+    
     while (currentLastNode->next != NULL) {
         if (currentLastNode->next->next == NULL) newLastNode = currentLastNode;
         currentLastNode = currentLastNode->next;
@@ -165,4 +168,7 @@ void List1::show() const {
 bool die( const string & msg ) {
     cerr <<endl <<"Fatal error: " <<msg <<endl;
     exit( EXIT_FAILURE );
+    
+    // cout <<endl <<"Fatal error: " <<msg <<endl;
+    // return true;
 }
