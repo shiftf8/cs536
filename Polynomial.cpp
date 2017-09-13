@@ -4,6 +4,8 @@
 
 Polynomial::Polynomial()
 {
+    Polynomial::term_count = 0;
+    Polynomial::highest_degree = 0;
 }
 void Polynomial::addTerm( const int& coefficient, const int& exponent )
 {
