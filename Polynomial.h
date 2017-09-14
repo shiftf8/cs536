@@ -1,20 +1,22 @@
 #ifndef POLYNOMIAL_
 #define POLYNOMIAL_
 
+static const int polynomial_term_capacity = 10;
+static unsigned term_count;
+static unsigned highest_degree;
+
 class Polynomial
 {
 private:
-    static const int coefficient;
-    static const unsigned exponent;
-    static unsigned term_count;
-    static unsigned highest_degree;
+    int the_coefficient;
+    unsigned the_exponent;
 
 public:
-    void addTerm( const int& coefficient, const int& exponent );
+    void addTerm(int coefficient, int exponent);
     int degree();
-    int coefficient( const int& power );
+    int coefficient(int power);
     int numberOfTerms();
-    int value( const int& x );
+    int value(int x);
 };
 
 #endif

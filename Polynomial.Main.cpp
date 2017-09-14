@@ -1,9 +1,10 @@
 #include "Polynomial.cpp"
 
 int main(){
-    polynomial expression;
-    
-    expression.addTerm(4, 5);
+    Polynomial terms[polynomial_term_capacity];
+
+    terms[0].addTerm(4, 5);
+    fprintf(stdout, "%u\n", term_count);
     
     return 0;
 }
