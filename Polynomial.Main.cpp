@@ -1,10 +1,10 @@
-#include "Polynomial.cpp"
+#include "Polynomial.h"
 
-int main(){
-    Polynomial terms[polynomial_term_capacity];
-
-    terms[0].addTerm(4, 5);
-    fprintf(stdout, "%u\n", term_count);
+int main()
+{
+    Polynomial term;
+    
+    term.addTerm(4, 5);
     
     return 0;
 }
