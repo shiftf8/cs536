@@ -4,22 +4,24 @@
 int main()
 {
     Polynomial poly;
+    int in_coefficient = 0;
+    int in_exponent = 0;
+
+    FILE* input_file;
+    input_file = fopen("input2.Polynomial.txt", "r");
     
-    // poly.addTerm(4, 5);
-    // poly.addTerm(7, 3);
-    // poly.addTerm(-1, 2);
-    // poly.addTerm(9, 0);
-
-    // fprintf(stdout, "%u\n", poly.degree());
-
-    // fprintf(stdout, "%d\n", poly.coefficient(2));
-    // fprintf(stdout, "%d\n", poly.coefficient(5));
-    // fprintf(stdout, "%d\n", poly.coefficient(0));
-    // fprintf(stdout, "%d\n", poly.coefficient(7));
-
-    // fprintf(stdout, "%d\n", poly.numberOfTerms());
-
-    // fprintf(stdout, "%d\n", poly.value(2));
+    if (input_file != NULL){
+        while (fscanf(input_file, "%d %d\n", &in_coefficient, &in_exponent) == 2){
+            poly.addTerm(in_coefficient, in_exponent);
+        }
+    }
+    fclose(input_file);
     
+    fprintf(stdout, "Degree: \t%u\n# terms:\t%d\n", poly.degree(), poly.numberOfTerms());
+    for (int i = 0; i < poly.degree(); ++i){
+        fprintf(stdout, "coeff(%d):\t%d\n", i, poly.coefficient(i));
+    }
+    fprintf(stdout, "value(1):\t%d\nvalue(2):\t%d\n", poly.value(1), poly.value(2));
+
     return 0;
 }
