@@ -1,21 +1,25 @@
 #include <cstdio>
+#include <cstdlib>
 #include "Polynomial.h"
 
-int main()
+int main(int argc, char* argv[])
 {
+    FILE* input = NULL;
     Polynomial poly;
     int in_coefficient = 0;
     int in_exponent = 0;
 
-    FILE* input_file;
-    input_file = fopen("input2.Polynomial.txt", "r");
+    if (argc != 2){
+        fprintf(stdout, "Missing input file argument. Program terminated.\n");
+        exit(EXIT_FAILURE);
+    }
     
-    if (input_file != NULL){
-        while (fscanf(input_file, "%d %d\n", &in_coefficient, &in_exponent) == 2){
+    if (input = fopen(argv[1], "r")){
+        while (fscanf(input, "%d %d\n", &in_coefficient, &in_exponent) == 2){
             poly.addTerm(in_coefficient, in_exponent);
         }
     }
-    fclose(input_file);
+    fclose(input);
     
     fprintf(stdout, "Degree: \t%u\n# terms:\t%d\n", poly.degree(), poly.numberOfTerms());
     for (int i = 0; i < poly.degree(); ++i){
