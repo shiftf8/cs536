@@ -9,15 +9,15 @@ int main(int argc, char* argv[])
     int in_coefficient = 0;
     int in_exponent = 0;
 
-    if (argc != 2){
-        fprintf(stdout, "Missing input file argument. Program terminated.\n");
-        exit(EXIT_FAILURE);
+    if (argc == 2){
+        input = fopen(argv[1], "r")
+    } else {
+        input = fopen("input1.Polynomial.txt", "r");
+        // input = fopen("input12.Polynomial.txt", "r");
     }
     
-    if (input = fopen(argv[1], "r")){
-        while (fscanf(input, "%d %d\n", &in_coefficient, &in_exponent) == 2){
-            poly.addTerm(in_coefficient, in_exponent);
-        }
+    while (fscanf(input, "%d %d\n", &in_coefficient, &in_exponent) == 2){
+        poly.addTerm(in_coefficient, in_exponent);
     }
     fclose(input);
     
