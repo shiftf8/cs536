@@ -16,33 +16,32 @@ void printVector(vector<string>& v)
 int main()
 {
    LinkedBag bag, bag1, bag2, bag3, bag4;
-   LinkedBag test;
 
-   cout << "initial size = " << bag.getCurrentSize() << endl;
+   // cout << "initial size = " << bag.getCurrentSize() << endl;
 
-   cout << "is empty should be true: " << bag.isEmpty() << endl;
+   // cout << "is empty should be true: " << bag.isEmpty() << endl;
 
-   bag.add("aa");
-   bag.add("bb");
-   bag.add("cc");
-   bag.add("dd");
-   bag.add("aa");
+   // bag.add("aa");
+   // bag.add("bb");
+   // bag.add("cc");
+   // bag.add("dd");
+   // bag.add("aa");
 
-   cout << "current size should be 5: " << bag.getCurrentSize() << endl;
-   cout << "is empty should be false: " << bag.isEmpty() << endl;
-   cout << "there should be 2 'aa' nodes: " << bag.getFrequencyOf("aa") << endl;
+   // cout << "current size should be 5: " << bag.getCurrentSize() << endl;
+   // cout << "is empty should be false: " << bag.isEmpty() << endl;
+   // cout << "there should be 2 'aa' nodes: " << bag.getFrequencyOf("aa") << endl;
    
-   vector<string> v = bag.toVector();
-   printVector(v);
+   // vector<string> v = bag.toVector();
+   // printVector(v);
    
-   cout << "contains 'cc' should be true: " << bag.contains("cc") << endl;
+   // cout << "contains 'cc' should be true: " << bag.contains("cc") << endl;
    
-   bag.remove("aa");
-   bag.remove("cc");
-   cout << "removed 'aa' and 'cc' - current size should be 3: " << bag.getCurrentSize() << endl;
+   // bag.remove("aa");
+   // bag.remove("cc");
+   // cout << "removed 'aa' and 'cc' - current size should be 3: " << bag.getCurrentSize() << endl;
       
-   v = bag.toVector();
-   printVector(v);
+   // v = bag.toVector();
+   // printVector(v);
    
    bag1.add("1"), bag1.add("2"), bag1.add("2"), bag1.add("3"), bag1.add("3"), bag1.add("3"), bag1.add("4"),
    bag1.add("4"), bag1.add("4"), bag1.add("4"), bag1.add("5"), bag1.add("5"), bag1.add("5"), bag1.add("5"), 
@@ -56,7 +55,7 @@ int main()
    bag4.add("5");
    
    fprintf(stdout, "bag1: ");
-   v = bag1.toVector();
+   vector<string> v = bag1.toVector();
    printVector(v);
    
    fprintf(stdout, "bag1 union bag2: ");
