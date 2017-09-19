@@ -8,7 +8,7 @@ LinkedList::LinkedList() : headPtr(nullptr), itemCount(0)
 
 void LinkedList::clear()
 {
-    while (!isEmpty())
+   while (!isEmpty())
       remove(1);
 }  // end clear
 
@@ -24,7 +24,7 @@ bool LinkedList::isEmpty() const
 }  // end isEmpty
 
 
-ItemType LinkedList::getEntry(int position) const 
+ItemType LinkedList::getEntry(int position) const
 {
    bool ableToGet = (position >= 1) && (position <= itemCount);
    if (ableToGet)
@@ -37,7 +37,7 @@ ItemType LinkedList::getEntry(int position) const
       std::string message = "getEntry() called with an empty list or ";
       message = message + "invalid position.";
       throw(message);
-   } 
+   }
 }  // end getEntry
 
 
@@ -65,12 +65,12 @@ bool LinkedList::insert(int newPosition, const ItemType& newEntry)
          // Insert new node after node to which prevPtr points
          newNodePtr->setNext(prevPtr->getNext());
          prevPtr->setNext(newNodePtr);
-      } 
+      }
       
       itemCount++; // Increase count of entries
-    }  
+   }
    
-   return ableToInsert;   
+   return ableToInsert;
 }  // end insert
 
 
@@ -97,20 +97,20 @@ bool LinkedList::remove(int position)
          // Disconnect indicated node from chain by connecting the
          // prior node with the one after
          prevPtr->setNext(curPtr->getNext());
-      } 
+      }
       
       // Return node to system
       curPtr->setNext(nullptr);
       delete curPtr;
       curPtr = nullptr;
       itemCount--; // Decrease count of entries
-   } 
+   }
    
    return ableToRemove;
 }  // end remove
 
 
-ItemType LinkedList::replace(int position, const ItemType& newEntry) 
+ItemType LinkedList::replace(int position, const ItemType& newEntry)
 {
    bool ableToReplace = (position >= 1) && (position <= itemCount);
    if (ableToReplace)
@@ -123,10 +123,10 @@ ItemType LinkedList::replace(int position, const ItemType& newEntry)
    }
    else
    {
-        std::string message = "replace() called with an empty list or ";
-        message = message + "invalid position.";
-        throw(message);
-   } 
+      std::string message = "replace() called with an empty list or ";
+      message = message + "invalid position.";
+      throw(message);
+   }
 }  // end replace
 
 

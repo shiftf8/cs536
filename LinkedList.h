@@ -7,29 +7,29 @@ using namespace std;
 
 typedef int ItemType;
 
-class LinkedList 
+class LinkedList
 {
 private:
     Node* headPtr; 	// Pointer to first node in the chain;
-   int itemCount;   // Current count of list items 
-   
-   // Locates a specified node in this linked list.
-   Node* getNodeAt(int position) const;   
+    int itemCount;   // Current count of list items
+    
+    // Locates a specified node in this linked list.
+    Node* getNodeAt(int position) const;
 
 public:
     LinkedList();
-     // Copy constructor and destructor are supplied by compiler
-   
+    // Copy constructor and destructor are supplied by compiler
+    
     bool isEmpty() const;
     int getLength() const;
     bool insert(int newPosition, const ItemType& newEntry);
     bool remove(int position);
     void clear();
-      
-    ItemType getEntry(int position) const; 
-    ItemType replace(int position, const ItemType& newEntry); 
+    
+    ItemType getEntry(int position) const;
+    ItemType replace(int position, const ItemType& newEntry);
     
     virtual ~LinkedList();
 }; // end ArrayList
 
-#endif 
+#endif
