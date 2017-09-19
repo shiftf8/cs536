@@ -4,7 +4,7 @@
 #include <string>
 using namespace std;
 
-typedef string ItemType;
+typedef int ItemType;
 
 class Node
 {
