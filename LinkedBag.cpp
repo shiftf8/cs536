@@ -142,15 +142,19 @@ LinkedBag::~LinkedBag()
    clear();
 }  // end destructor
 
-LinkedBag union(const LinkedBag& otherBag)
+LinkedBag::LinkedBag(const LinkedBag& aBag)
 {
    
 }
-LinkedBag intersection(const LinkedBag& otherBag)
+LinkedBag LinkedBag::Union(const LinkedBag& otherBag)
 {
    
 }
-LinkedBag difference(const LinkedBag& otherBag)
+LinkedBag LinkedBag::intersection(const LinkedBag& otherBag)
+{
+   
+}
+LinkedBag LinkedBag::difference(const LinkedBag& otherBag)
 {
    
 }

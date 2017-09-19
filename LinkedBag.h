@@ -30,7 +30,7 @@ public:
    int getFrequencyOf(const ItemType& anEntry) const;
    vector<ItemType> toVector() const;
    
-   LinkedBag union(const LinkedBag& otherBag);
+   LinkedBag Union(const LinkedBag& otherBag);
    LinkedBag intersection(const LinkedBag& otherBag);
    LinkedBag difference(const LinkedBag& otherBag);
    
