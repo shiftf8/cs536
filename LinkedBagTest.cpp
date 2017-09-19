@@ -15,7 +15,8 @@ void printVector(vector<string>& v)
 
 int main()
 {
-   LinkedBag bag;
+   LinkedBag bag, bag1, bag2, bag3, bag4;
+   LinkedBag test;
 
    cout << "initial size = " << bag.getCurrentSize() << endl;
 
@@ -42,5 +43,31 @@ int main()
       
    v = bag.toVector();
    printVector(v);
+   
+   bag1.add("1"), bag1.add("2"), bag1.add("2"), bag1.add("3"), bag1.add("3"), bag1.add("3"), bag1.add("4"),
+   bag1.add("4"), bag1.add("4"), bag1.add("4"), bag1.add("5"), bag1.add("5"), bag1.add("5"), bag1.add("5"), 
+   bag1.add("5");
+   
+   bag2.add("6"), bag2.add("6"), bag2.add("7"), bag2.add("7"), bag2.add("7");
+   
+   bag3.add("2"), bag3.add("3"), bag3.add("4"), bag3.add("4"), bag3.add("5"), bag3.add("6"), bag3.add("7");
+   
+   bag4.add("2"), bag4.add("3"), bag4.add("3"), bag4.add("4"), bag4.add("4"), bag4.add("4"), bag4.add("4"),
+   bag4.add("5");
+   
+   fprintf(stdout, "bag1: ");
+   v = bag1.toVector();
+   printVector(v);
+   
+   fprintf(stdout, "bag1 union bag2: ");
+   v = bag1.unionBag(bag2).toVector();
+   printVector(v);
+   
+   fprintf(stdout, "bag1 inter bag3: ");
+   v = bag1.intersection(bag3).toVector();
+   printVector(v);
 
+   fprintf(stdout, "bag1 diff bag4: ");
+   v = bag1.difference(bag4).toVector();
+   printVector(v);
 } // end main

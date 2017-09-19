@@ -1,3 +1,4 @@
+#include <cstdio>
 #include "LinkedBag.h"
 
 LinkedBag::LinkedBag() : headPtr(nullptr), itemCount(0)
@@ -142,19 +143,87 @@ LinkedBag::~LinkedBag()
    clear();
 }  // end destructor
 
+
 LinkedBag::LinkedBag(const LinkedBag& aBag)
 {
+   itemCount = aBag.itemCount;
+   Node* origChainPtr = aBag.headPtr; // Points to nodes in original chain
    
-}
-LinkedBag LinkedBag::Union(const LinkedBag& otherBag)
+   if (origChainPtr == nullptr)
+      headPtr = nullptr; // Original bag is empty
+   else
+   {
+      // Copy first node
+      headPtr = new Node();
+      headPtr->setItem(origChainPtr->getItem());
+      
+      // Copy remaining nodes
+      Node* newChainPtr = headPtr; // Points to last node in new chain
+      origChainPtr = origChainPtr->getNext(); // Advance original-chain pointer
+      
+      while (origChainPtr != nullptr)
+      {
+         // Get next item from original chain
+         ItemType nextItem = origChainPtr->getItem();
+         
+         // Create a new node containing the next item
+         Node* newNodePtr = new Node(nextItem);
+         
+         // Link new node to end of new chain
+         newChainPtr->setNext(newNodePtr);
+         
+         // Advance pointer to new last node
+         newChainPtr = newChainPtr->getNext();
+         
+         // Advance original-chain pointer
+         origChainPtr = origChainPtr->getNext();
+      } // end while
+      
+      newChainPtr->setNext(nullptr); // Flag end of new chain
+   } // end if
+} // end copy constructor
+
+LinkedBag LinkedBag::unionBag(const LinkedBag& otherBag) const
 {
+   LinkedBag retBag = LinkedBag(*this);
+   Node* otherChainPtr = otherBag.headPtr;
    
+   while (otherChainPtr != nullptr)
+   {
+      retBag.add(otherChainPtr->getItem());
+      otherChainPtr = otherChainPtr->getNext();
+   }
+   
+   return retBag;
 }
-LinkedBag LinkedBag::intersection(const LinkedBag& otherBag)
+
+LinkedBag LinkedBag::intersection(const LinkedBag& otherBag) const
 {
+   LinkedBag retBag;
+   Node* otherChainPtr = otherBag.headPtr;
    
+   while (otherChainPtr != nullptr)
+   {
+      if (this->contains(otherChainPtr->getItem()))
+      {
+         if (!retBag.contains(otherChainPtr->getItem())) retBag.add(otherChainPtr->getItem());
+      }
+      otherChainPtr = otherChainPtr->getNext();
+   }
+
+   return retBag;
 }
-LinkedBag LinkedBag::difference(const LinkedBag& otherBag)
+
+LinkedBag LinkedBag::difference(const LinkedBag& otherBag) const
 {
+   LinkedBag retBag = LinkedBag(*this);
+   Node* otherChainPtr = otherBag.headPtr;
    
+   while (otherChainPtr != nullptr)
+   {
+      if (retBag.contains(otherChainPtr->getItem())) retBag.remove(otherChainPtr->getItem());
+      otherChainPtr = otherChainPtr->getNext();
+   }
+   
+   return retBag;
 }
