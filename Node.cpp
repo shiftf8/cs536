@@ -25,7 +25,7 @@ void Node::setNext(Node* nextNodePtr)
 
 ItemType Node::getItem() const
 {
-   return itemCount;
+   return item;
 } // end getItem
 
 Node* Node::getNext() const
