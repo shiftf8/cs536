@@ -25,10 +25,16 @@ void Node::setNext(Node* nextNodePtr)
 
 ItemType Node::getItem() const
 {
-   return item;
+   return itemCount;
 } // end getItem
 
 Node* Node::getNext() const
 {
    return next;
 } // end getNext
+
+
+Node* Node::getPrevious() const
+{
+   return previous;
+}
