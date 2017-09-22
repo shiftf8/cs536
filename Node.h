@@ -11,6 +11,7 @@ class Node
 private:
    ItemType item;  // A data item
    Node*    next;  // Pointer to next node
+
    Node*    previous;
    
 public:
@@ -21,6 +22,8 @@ public:
    void setNext(Node* nextNodePtr);
    ItemType getItem() const ;
    Node* getNext() const ;
+
+   void setPrevious(Node* previousNodePtr);
    Node* getPrevious() const ;
 }; // end Node
 
