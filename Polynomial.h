@@ -1,7 +1,7 @@
 #ifndef POLYNOMIAL_
 #define POLYNOMIAL_
 
-const static size_t polynomial_term_capacity = 10;
+const static int polynomial_term_capacity = 10;
 
 struct polyterm
 {
