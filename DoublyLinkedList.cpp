@@ -148,3 +148,43 @@ DoublyLinkedList::~DoublyLinkedList()
 {
    clear();
 } // end destructor
+
+
+DoublyLinkedList::DoublyLinkedList(const DoublyLinkedList& aList)
+{
+   itemCount = aList.itemCount;
+   Node* origChainPtr = aList.headPtr; // Points to nodes in original chain
+   
+   if (origChainPtr == nullptr)
+      headPtr = nullptr; // Original list is empty
+   else
+   {
+      // Copy first node
+      headPtr = new Node();
+      headPtr->setItem(origChainPtr->getItem());
+      
+      // Copy remaining nodes
+      Node* newChainPtr = headPtr; // Points to last node in new chain
+      origChainPtr = origChainPtr->getNext(); // Advance original-chain pointer
+      
+      while (origChainPtr != nullptr)
+      {
+         // Get next item from original chain
+         ItemType nextItem = origChainPtr->getItem();
+         
+         // Create a new node containing the next item
+         Node* newNodePtr = new Node(nextItem);
+         
+         // Link new node to end of new chain
+         newChainPtr->setNext(newNodePtr);
+         
+         // Advance pointer to new last node
+         newChainPtr = newChainPtr->getNext();
+         
+         // Advance original-chain pointer
+         origChainPtr = origChainPtr->getNext();
+      } // end while
+      
+      newChainPtr->setNext(nullptr); // Flag end of new chain
+   } // end if
+} // end copy constructor
