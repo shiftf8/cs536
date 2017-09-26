@@ -29,7 +29,7 @@ ItemType DoublyLinkedList::getEntry(int position) const
    bool ableToGet = (position >= 1) && (position <= itemCount);
    if (ableToGet)
    {
-      Node* nodePtr = getNodeAt(position);
+      NodeDoubly* nodePtr = getNodeAt(position);
       return nodePtr->getItem();
    }
    else
@@ -48,7 +48,7 @@ bool DoublyLinkedList::insert(int newPosition, const ItemType& newEntry)
    if (ableToInsert)
    {
       // Create a new node containing the new entry
-      Node* newNodePtr = new Node(newEntry);
+      NodeDoubly* newNodePtr = new NodeDoubly(newEntry);
       
       // Attach new node to chain
       if (newPosition == 1)
@@ -60,7 +60,7 @@ bool DoublyLinkedList::insert(int newPosition, const ItemType& newEntry)
       else
       {
          // Find node that will be before new node
-         Node* prevPtr = getNodeAt(newPosition - 1);
+         NodeDoubly* prevPtr = getNodeAt(newPosition - 1);
          
          // Insert new node after node to which prevPtr points
          newNodePtr->setNext(prevPtr->getNext());
@@ -79,7 +79,7 @@ bool DoublyLinkedList::remove(int position)
    bool ableToRemove = (position >= 1) && (position <= itemCount);
    if (ableToRemove)
    {
-      Node* curPtr = nullptr;
+      NodeDoubly* curPtr = nullptr;
       if (position == 1)
       {
          // Remove the first node in the chain
@@ -89,7 +89,7 @@ bool DoublyLinkedList::remove(int position)
       else
       {
          // Find node that is before the one to remove
-         Node* prevPtr = getNodeAt(position - 1);
+         NodeDoubly* prevPtr = getNodeAt(position - 1);
          
          // Point to node to remove
          curPtr = prevPtr->getNext();
@@ -115,7 +115,7 @@ ItemType DoublyLinkedList::replace(int position, const ItemType& newEntry)
    bool ableToReplace = (position >= 1) && (position <= itemCount);
    if (ableToReplace)
    {
-      Node* entryPtr = getNodeAt(position);
+      NodeDoubly* entryPtr = getNodeAt(position);
       ItemType oldEntry = entryPtr->getItem();
       entryPtr->setItem(newEntry);
       
@@ -130,13 +130,13 @@ ItemType DoublyLinkedList::replace(int position, const ItemType& newEntry)
 }  // end replace
 
 
-Node* DoublyLinkedList::getNodeAt(int position) const
+NodeDoubly* DoublyLinkedList::getNodeAt(int position) const
 {
    // Debugging check of precondition
    assert( (position >= 1) && (position <= itemCount) );
    
    // Count from the beginning of the chain
-   Node* curPtr = headPtr;
+   NodeDoubly* curPtr = headPtr;
    for (int skip = 1; skip < position; skip++)
       curPtr = curPtr->getNext();
       
@@ -153,20 +153,22 @@ DoublyLinkedList::~DoublyLinkedList()
 DoublyLinkedList::DoublyLinkedList(const DoublyLinkedList& aList)
 {
    itemCount = aList.itemCount;
-   Node* origChainPtr = aList.headPtr; // Points to nodes in original chain
+   NodeDoubly* origChainPtr = aList.headPtr; // Points to nodes in original chain
    
    if (origChainPtr == nullptr)
    {
       headPtr = nullptr; // Original list is empty
+      tailPtr = nullptr;
    }
    else
    {
       // Copy first node
-      headPtr = new Node();
+      headPtr = new NodeDoubly();
       headPtr->setItem(origChainPtr->getItem());
+      tailPtr = headPtr;
 
       // Copy remaining nodes
-      Node* newChainPtr = headPtr; // Points to last node in new chain
+      NodeDoubly* newChainPtr = headPtr; // Points to last node in new chain
       origChainPtr = origChainPtr->getNext(); // Advance original-chain pointer
       
       while (origChainPtr != nullptr)
@@ -175,10 +177,11 @@ DoublyLinkedList::DoublyLinkedList(const DoublyLinkedList& aList)
          ItemType nextItem = origChainPtr->getItem();
          
          // Create a new node containing the next item
-         Node* newNodePtr = new Node(nextItem);
+         NodeDoubly* newNodePtr = new NodeDoubly(nextItem);
          
          // Link new node to end of new chain
          newChainPtr->setNext(newNodePtr);
+         newChainPtr->setPrevious(origChainPtr);
 
          // Advance pointer to new last node
          newChainPtr = newChainPtr->getNext();

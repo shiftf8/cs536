@@ -1,25 +1,26 @@
 #ifndef NODE_DOUBLY_
 #define NODE_DOUBLY_
 
-#include <string>
-using namespace std;
-
 typedef int ItemType;
 
-class Node
+class NodeDoubly
 {
 private:
-   ItemType  item;  // A data item
-   Node*     next;  // Pointer to next node
+   ItemType item;  // A data item
+   NodeDoubly*    next;  // Pointer to next node
+   NodeDoubly*    previous;
    
 public:
-   Node();
-   Node(const ItemType& anItem);
-   Node(const ItemType& anItem, Node* nextNodePtr);
+   NodeDoubly();
+   NodeDoubly(const ItemType& anItem);
+   NodeDoubly(const ItemType& anItem, NodeDoubly* nextNodePtr);
    void setItem(const ItemType& anItem);
-   void setNext(Node* nextNodePtr);
+   void setNext(NodeDoubly* nextNodePtr);
    ItemType getItem() const ;
-   Node* getNext() const ;
-}; // end Node
+   NodeDoubly* getNext() const ;
+
+   void setPrevious(NodeDoubly* previousNodePtr);
+   NodeDoubly* getPrevious() const ;
+}; // end NodeDoubly
 
 #endif

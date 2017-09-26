@@ -1,34 +1,45 @@
 #include "NodeDoubly.h"
 
-Node::Node() : next(nullptr)
+NodeDoubly::NodeDoubly() : next(nullptr), previous(nullptr)
 {
 } // end default constructor
 
-Node::Node(const ItemType& anItem) : item(anItem), next(nullptr)
+NodeDoubly::NodeDoubly(const ItemType& anItem) : item(anItem), next(nullptr), previous(nullptr)
 {
 } // end constructor
 
-Node::Node(const ItemType& anItem, Node* nextNodePtr) :
+NodeDoubly::NodeDoubly(const ItemType& anItem, NodeDoubly* nextNodePtr) :
                 item(anItem), next(nextNodePtr)
 {
 } // end constructor
 
-void Node::setItem(const ItemType& anItem)
+void NodeDoubly::setItem(const ItemType& anItem)
 {
    item = anItem;
 } // end setItem
 
-void Node::setNext(Node* nextNodePtr)
+void NodeDoubly::setNext(NodeDoubly* nextNodePtr)
 {
    next = nextNodePtr;
 } // end setNext
 
-ItemType Node::getItem() const
+ItemType NodeDoubly::getItem() const
 {
    return item;
 } // end getItem
 
-Node* Node::getNext() const
+NodeDoubly* NodeDoubly::getNext() const
 {
    return next;
 } // end getNext
+
+
+
+void NodeDoubly::setPrevious(NodeDoubly* previousNodePtr)
+{
+   previous = previousNodePtr;
+}
+NodeDoubly* NodeDoubly::getPrevious() const
+{
+   return previous;
+}

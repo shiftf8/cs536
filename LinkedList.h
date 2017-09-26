@@ -2,8 +2,6 @@
 #define LINKED_LIST_
 
 #include "Node.h"
-#include <string>
-using namespace std;
 
 typedef int ItemType;
 
@@ -30,6 +28,6 @@ public:
     ItemType replace(int position, const ItemType& newEntry);
     
     virtual ~LinkedList();
-}; // end ArrayList
+};
 
 #endif

@@ -1,8 +1,9 @@
 #ifndef DOUBLY_LINKED_LIST_
 #define DOUBLY_LINKED_LIST_
 
-#include "Node.h"
 #include <string>
+#include "NodeDoubly.h"
+
 using namespace std;
 
 typedef int ItemType;
@@ -10,12 +11,12 @@ typedef int ItemType;
 class DoublyLinkedList
 {
 private:
-    Node* headPtr; 	// Pointer to first node in the chain;
+    NodeDoubly* headPtr; 	// Pointer to first node in the chain;
     int itemCount;   // Current count of list items
     // Locates a specified node in this linked list.
-    Node* getNodeAt(int position) const;
+    NodeDoubly* getNodeAt(int position) const;
 
-    Node* tailPtr;
+    NodeDoubly* tailPtr;
     
 public:
     DoublyLinkedList();
@@ -34,6 +35,6 @@ public:
 
     DoublyLinkedList(const DoublyLinkedList& aList);
 
-}; // end ArrayList
+};
 
 #endif
