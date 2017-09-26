@@ -204,10 +204,7 @@ LinkedBag LinkedBag::intersection(const LinkedBag& otherBag) const
    
    while (otherChainPtr != nullptr)
    {
-      if (this->contains(otherChainPtr->getItem()))
-      {
-         if (!retBag.contains(otherChainPtr->getItem())) retBag.add(otherChainPtr->getItem());
-      }
+      if (this->contains(otherChainPtr->getItem())) retBag.add(otherChainPtr->getItem());
       otherChainPtr = otherChainPtr->getNext();
    }
 
