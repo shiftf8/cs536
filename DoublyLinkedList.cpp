@@ -157,6 +157,7 @@ DoublyLinkedList::DoublyLinkedList(const DoublyLinkedList& aList)
    
    if (origChainPtr == nullptr)
       headPtr = nullptr; // Original list is empty
+      tailPtr = nullptr;
    else
    {
       // Copy first node

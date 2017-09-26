@@ -15,9 +15,8 @@ private:
     // Locates a specified node in this linked list.
     Node* getNodeAt(int position) const;
 
-
     Node* tailPtr;
-
+    
 public:
     DoublyLinkedList();
     // Copy constructor and destructor are supplied by compiler
@@ -32,7 +31,6 @@ public:
     ItemType replace(int position, const ItemType& newEntry);
     
     virtual ~DoublyLinkedList();
-
 
     DoublyLinkedList(const DoublyLinkedList& aList);
 

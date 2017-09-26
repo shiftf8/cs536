@@ -32,14 +32,3 @@ Node* Node::getNext() const
 {
    return next;
 } // end getNext
-
-
-void Node::setPrevious(Node* previousNodePtr)
-{
-   previous = previousNodePtr;
-}
-
-Node* Node::getPrevious() const
-{
-   return previous;
-}
