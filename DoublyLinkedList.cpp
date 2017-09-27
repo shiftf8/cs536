@@ -1,7 +1,7 @@
 #include "DoublyLinkedList.h"
 #include <cassert>
 
-DoublyLinkedList::DoublyLinkedList() : headPtr(nullptr), itemCount(0)
+DoublyLinkedList::DoublyLinkedList() : headPtr(nullptr), itemCount(0), tailPtr(nullptr)
 {
 }  // end default constructor
 
@@ -56,6 +56,7 @@ bool DoublyLinkedList::insert(int newPosition, const ItemType& newEntry)
          // Insert new node at beginning of chain
          newNodePtr->setNext(headPtr);
          headPtr = newNodePtr;
+         newNodePtr->setPrevious(nullptr);
       }
       else
       {
@@ -65,6 +66,7 @@ bool DoublyLinkedList::insert(int newPosition, const ItemType& newEntry)
          // Insert new node after node to which prevPtr points
          newNodePtr->setNext(prevPtr->getNext());
          prevPtr->setNext(newNodePtr);
+         newNodePtr->setPrevious(prevPtr);
       }
       
       itemCount++; // Increase count of entries
@@ -97,6 +99,9 @@ bool DoublyLinkedList::remove(int position)
          // Disconnect indicated node from chain by connecting the
          // prior node with the one after
          prevPtr->setNext(curPtr->getNext());
+         
+         NodeDoubly* nextPtr = curPtr->getNext();
+         nextPtr->setPrevious(prevPtr);
       }
       
       // Return node to system
@@ -154,18 +159,15 @@ DoublyLinkedList::DoublyLinkedList(const DoublyLinkedList& aList)
 {
    itemCount = aList.itemCount;
    NodeDoubly* origChainPtr = aList.headPtr; // Points to nodes in original chain
-   
+
    if (origChainPtr == nullptr)
-   {
       headPtr = nullptr; // Original list is empty
-      tailPtr = nullptr;
-   }
    else
    {
       // Copy first node
       headPtr = new NodeDoubly();
       headPtr->setItem(origChainPtr->getItem());
-      tailPtr = headPtr;
+      headPtr->setPrevious(origChainPtr->getPrevious());
 
       // Copy remaining nodes
       NodeDoubly* newChainPtr = headPtr; // Points to last node in new chain
@@ -189,6 +191,7 @@ DoublyLinkedList::DoublyLinkedList(const DoublyLinkedList& aList)
          // Advance original-chain pointer
          origChainPtr = origChainPtr->getNext();
       } // end while
+      
       
       newChainPtr->setNext(nullptr); // Flag end of new chain
    } // end if

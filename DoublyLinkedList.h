@@ -20,8 +20,7 @@ private:
     
 public:
     DoublyLinkedList();
-    // Copy constructor and destructor are supplied by compiler
-    
+
     bool isEmpty() const;
     int getLength() const;
     bool insert(int newPosition, const ItemType& newEntry);
@@ -34,7 +33,6 @@ public:
     virtual ~DoublyLinkedList();
 
     DoublyLinkedList(const DoublyLinkedList& aList);
-
 };
 
 #endif

@@ -1,7 +1,10 @@
 #ifndef LINKED_LIST_
 #define LINKED_LIST_
 
+#include <string>
 #include "Node.h"
+
+using namespace std;
 
 typedef int ItemType;
 
