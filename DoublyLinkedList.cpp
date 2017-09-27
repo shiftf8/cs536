@@ -196,3 +196,8 @@ DoublyLinkedList::DoublyLinkedList(const DoublyLinkedList& aList)
       newChainPtr->setNext(nullptr); // Flag end of new chain
    } // end if
 } // end copy constructor
+
+DoublyLinkedList::DoublyLinkedList(const LinkedList::LinkedList& linkedList)
+{
+   
+}

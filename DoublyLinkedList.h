@@ -33,6 +33,7 @@ public:
     virtual ~DoublyLinkedList();
 
     DoublyLinkedList(const DoublyLinkedList& aList);
+    DoublyLinkedList(const LinkedList& linkedList);
 };
 
 #endif
