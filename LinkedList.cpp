@@ -1,5 +1,5 @@
-#include "LinkedList.h"
 #include <cassert>
+#include "LinkedList.h"
 
 LinkedList::LinkedList() : headPtr(nullptr), itemCount(0)
 {

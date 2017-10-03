@@ -1,10 +1,10 @@
+#include <iostream>
 #include "DoublyLinkedList.h"
 #include "LinkedList.h"
-#include <iostream>
 
 int main()
 {
-    LinkedList list;
+    LinkedList list, list2;
     
     for (int i = 1; i <= 10; i++)
     {
@@ -34,4 +34,12 @@ int main()
     cout << "length [0]: " << list.getLength() << endl;
     cout << "isEmpty [1]: " << list.isEmpty() << endl;
     
+    
+    list2 = DoublyLinkedList(list);
+    cout << "list2: ";
+    for (int i = 1; i <= list.getLength(); i++)
+    {
+        cout << list.getEntry(i) <<  " ";
+    }
+    cout << endl;
 }

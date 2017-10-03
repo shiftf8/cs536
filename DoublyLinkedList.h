@@ -3,6 +3,7 @@
 
 #include <string>
 #include "NodeDoubly.h"
+#include "LinkedList.h"
 
 using namespace std;
 

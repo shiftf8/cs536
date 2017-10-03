@@ -1,5 +1,5 @@
-#include "DoublyLinkedList.h"
 #include <cassert>
+#include "DoublyLinkedList.h"
 
 DoublyLinkedList::DoublyLinkedList() : headPtr(nullptr), itemCount(0), tailPtr(nullptr)
 {
@@ -197,7 +197,7 @@ DoublyLinkedList::DoublyLinkedList(const DoublyLinkedList& aList)
    } // end if
 } // end copy constructor
 
-DoublyLinkedList::DoublyLinkedList(const LinkedList::LinkedList& linkedList)
+DoublyLinkedList::DoublyLinkedList(const LinkedList& linkedList)
 {
    
 }
