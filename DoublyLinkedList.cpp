@@ -164,15 +164,16 @@ DoublyLinkedList::DoublyLinkedList(const DoublyLinkedList& aList)
    NodeDoubly* origChainPtr = aList.headPtr; // Points to nodes in original chain
 
    if (origChainPtr == nullptr)
+   {
       headPtr = nullptr; // Original list is empty
       tailPtr = nullptr;
+   }
    else
    {
       // Copy first node
       headPtr = new NodeDoubly();
       headPtr->setItem(origChainPtr->getItem());
       headPtr->setPrevious(origChainPtr->getPrevious());
-      tailPtr = headPtr;
 
       // Copy remaining nodes
       NodeDoubly* newChainPtr = headPtr; // Points to last node in new chain
@@ -188,7 +189,7 @@ DoublyLinkedList::DoublyLinkedList(const DoublyLinkedList& aList)
          
          // Link new node to end of new chain
          newChainPtr->setNext(newNodePtr);
-         newChainPtr->setPrevious(origChainPtr);
+         newNodePtr->setPrevious(newChainPtr);
 
          // Advance pointer to new last node
          newChainPtr = newChainPtr->getNext();
@@ -199,6 +200,7 @@ DoublyLinkedList::DoublyLinkedList(const DoublyLinkedList& aList)
       
       
       newChainPtr->setNext(nullptr); // Flag end of new chain
+      tailPtr = newChainPtr;
    } // end if
 } // end copy constructor
 

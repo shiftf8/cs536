@@ -13,7 +13,7 @@ private:
 public:
    NodeDoubly();
    NodeDoubly(const ItemType& anItem);
-   NodeDoubly(const ItemType& anItem, NodeDoubly* nextNodePtr);
+   NodeDoubly(const ItemType& anItem, NodeDoubly* nextNodePtr, NodeDoubly* previousNodePtr);
    void setItem(const ItemType& anItem);
    void setNext(NodeDoubly* nextNodePtr);
    ItemType getItem() const ;
