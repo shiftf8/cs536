@@ -8,8 +8,8 @@ NodeDoubly::NodeDoubly(const ItemType& anItem) : item(anItem), next(nullptr), pr
 {
 } // end constructor
 
-NodeDoubly::NodeDoubly(const ItemType& anItem, NodeDoubly* nextNodePtr) :
-                item(anItem), next(nextNodePtr)
+NodeDoubly::NodeDoubly(const ItemType& anItem, NodeDoubly* nextNodePtr, NodeDoubly* previousNodePtr) :
+                item(anItem), next(nextNodePtr), previous(previousNodePtr)
 {
 } // end constructor
 

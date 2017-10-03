@@ -55,16 +55,19 @@ bool DoublyLinkedList::insert(int newPosition, const ItemType& newEntry)
       {
          // Insert new node at beginning of chain
          newNodePtr->setNext(headPtr);
+         headPtr->setPrevious(newNodePtr);
          headPtr = newNodePtr;
-         newNodePtr->setPrevious(nullptr);
+         headPtr->setPrevious(nullptr);
       }
       else
       {
          // Find node that will be before new node
          NodeDoubly* prevPtr = getNodeAt(newPosition - 1);
+         NodeDoubly* nextPtr = getNodeAt(newPosition);
          
          // Insert new node after node to which prevPtr points
-         newNodePtr->setNext(prevPtr->getNext());
+         newNodePtr->setNext(nextPtr);
+         nextPtr->setPrevious(newNodePtr);
          prevPtr->setNext(newNodePtr);
          newNodePtr->setPrevious(prevPtr);
       }
@@ -92,20 +95,20 @@ bool DoublyLinkedList::remove(int position)
       {
          // Find node that is before the one to remove
          NodeDoubly* prevPtr = getNodeAt(position - 1);
-         
+         NodeDoubly* nextPtr = getNodeAt(position + 1);
+
          // Point to node to remove
          curPtr = prevPtr->getNext();
          
          // Disconnect indicated node from chain by connecting the
          // prior node with the one after
-         prevPtr->setNext(curPtr->getNext());
-         
-         NodeDoubly* nextPtr = curPtr->getNext();
+         prevPtr->setNext(nextPtr);
          nextPtr->setPrevious(prevPtr);
       }
       
       // Return node to system
       curPtr->setNext(nullptr);
+      curPtr->setPrevious(nullptr);
       delete curPtr;
       curPtr = nullptr;
       itemCount--; // Decrease count of entries
@@ -162,12 +165,14 @@ DoublyLinkedList::DoublyLinkedList(const DoublyLinkedList& aList)
 
    if (origChainPtr == nullptr)
       headPtr = nullptr; // Original list is empty
+      tailPtr = nullptr;
    else
    {
       // Copy first node
       headPtr = new NodeDoubly();
       headPtr->setItem(origChainPtr->getItem());
       headPtr->setPrevious(origChainPtr->getPrevious());
+      tailPtr = headPtr;
 
       // Copy remaining nodes
       NodeDoubly* newChainPtr = headPtr; // Points to last node in new chain
