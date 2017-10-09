@@ -32,18 +32,13 @@ int main()
     }
     cout << endl;
     
-    // list.clear();
-    // cout << "length [0]: " << list.getLength() << endl;
-    // cout << "isEmpty [1]: " << list.isEmpty() << endl;
+    list.clear();
+    cout << "length [0]: " << list.getLength() << endl;
+    cout << "isEmpty [1]: " << list.isEmpty() << endl;
     
 
     cout << endl;
-    // DoublyLinkedList doubleList;
-    // for (int i = 1; i <= list.getLength(); i++)
-    // {
-    //     doubleList.insert(i, list.getEntry(i));
-    // }
-    
+
     DoublyLinkedList doubleList(list);
     cout << "length [9]: " << doubleList.getLength() << endl;
     cout << "isEmpty [0]: " << doubleList.isEmpty() << endl;
