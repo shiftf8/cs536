@@ -8,6 +8,7 @@ class NodeDoubly
 private:
    ItemType item;  // A data item
    NodeDoubly*    next;  // Pointer to next node
+   
    NodeDoubly*    previous;
    
 public:

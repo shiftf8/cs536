@@ -4,7 +4,7 @@
 
 int main()
 {
-    LinkedList list, list2;
+    LinkedList list;
     
     for (int i = 1; i <= 10; i++)
     {
@@ -33,4 +33,8 @@ int main()
     list.clear();
     cout << "length [0]: " << list.getLength() << endl;
     cout << "isEmpty [1]: " << list.isEmpty() << endl;
+    
+    DoublyLinkedList doubleList;
+    doubleList.insert(1, list.getEntry(1));
+    // doubleList = DoublyLinkedList(list);
 }

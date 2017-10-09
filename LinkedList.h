@@ -1,8 +1,8 @@
 #ifndef LINKED_LIST_
 #define LINKED_LIST_
 
-#include "Node.h"
 #include <string>
+#include "Node.h"
 
 using namespace std;
 

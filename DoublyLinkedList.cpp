@@ -206,5 +206,10 @@ DoublyLinkedList::DoublyLinkedList(const DoublyLinkedList& aList)
 
 DoublyLinkedList::DoublyLinkedList(const LinkedList& linkedList)
 {
-   
+    DoublyLinkedList doubleList;
+
+    for (int i = 0; i < linkedList.getLength(); ++i)
+    {
+        doubleList.insert(i, linkedList.getEntry(i));
+    }
 }
