@@ -2,6 +2,8 @@
 #include "DoublyLinkedList.h"
 #include "LinkedList.h"
 
+using namespace std;
+
 int main()
 {
     LinkedList list;
@@ -30,11 +32,41 @@ int main()
     }
     cout << endl;
     
-    list.clear();
-    cout << "length [0]: " << list.getLength() << endl;
-    cout << "isEmpty [1]: " << list.isEmpty() << endl;
+    // list.clear();
+    // cout << "length [0]: " << list.getLength() << endl;
+    // cout << "isEmpty [1]: " << list.isEmpty() << endl;
     
-    DoublyLinkedList doubleList;
-    doubleList.insert(1, list.getEntry(1));
-    // doubleList = DoublyLinkedList(list);
+
+    cout << endl;
+    // DoublyLinkedList doubleList;
+    // for (int i = 1; i <= list.getLength(); i++)
+    // {
+    //     doubleList.insert(i, list.getEntry(i));
+    // }
+    
+    DoublyLinkedList doubleList(list);
+    cout << "length [9]: " << doubleList.getLength() << endl;
+    cout << "isEmpty [0]: " << doubleList.isEmpty() << endl;
+    doubleList.remove(3);
+    cout << "length [8]: " << doubleList.getLength() << endl;
+    
+    entry = doubleList.getEntry(3);
+    cout << "Entry [105]: " << entry << endl;
+    
+    doubleList.replace(3, 999);
+    entry = doubleList.getEntry(3);
+    cout << "Entry [999]: " << entry << endl;
+    
+    cout << "doubleList: ";
+    for (int i = 1; i <= doubleList.getLength(); i++)
+    {
+        cout << doubleList.getEntry(i) <<  " ";
+    }
+    cout << endl;
+    
+    doubleList.clear();
+    cout << "length [0]: " << doubleList.getLength() << endl;
+    cout << "isEmpty [1]: " << doubleList.isEmpty() << endl;
+    
+    return 0;
 }

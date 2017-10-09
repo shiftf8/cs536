@@ -5,8 +5,6 @@
 #include "NodeDoubly.h"
 #include "LinkedList.h"
 
-using namespace std;
-
 typedef int ItemType;
 
 class DoublyLinkedList
