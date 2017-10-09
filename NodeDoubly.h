@@ -1,6 +1,10 @@
 #ifndef NODE_DOUBLY_
 #define NODE_DOUBLY_
 
+#include <string>
+
+using namespace std;
+
 typedef string ItemType;
 
 class NodeDoubly
