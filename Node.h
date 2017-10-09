@@ -1,7 +1,7 @@
 #ifndef NODE_
 #define NODE_
 
-typedef int ItemType;
+typedef string ItemType;
 
 class Node
 {

@@ -6,7 +6,7 @@
 
 using namespace std;
 
-typedef int ItemType;
+typedef string ItemType;
 
 class LinkedList
 {

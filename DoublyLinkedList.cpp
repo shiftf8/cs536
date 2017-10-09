@@ -223,3 +223,36 @@ DoublyLinkedList::DoublyLinkedList(const LinkedList& linkedList) : headPtr(nullp
       this->insert(i, linkedList.getEntry(i));
    }
 }
+
+void DoublyLinkedList::reverse()
+{
+   NodeDoubly* tempHeadPtr = headPtr;
+   NodeDoubly* tmpPtr;
+   
+   this->tailPtr = tempHeadPtr;
+   while (tempHeadPtr != nullptr)
+   {
+      tmpPtr = tempHeadPtr->getNext();
+      tempHeadPtr->setNext(tempHeadPtr->getPrevious());
+      tempHeadPtr->setPrevious(tmpPtr);
+      
+      tempHeadPtr = tempHeadPtr->getNext();
+   }
+   
+   this->headPtr = tempHeadPtr;
+}
+
+vector<ItemType> DoublyLinkedList::toVector(bool reverse)
+{
+   std::vector<ItemType> doubleList;
+   NodeDoubly* curPtr = (reverse ? tailPtr: headPtr);
+   int counter = 0;
+   while ((curPtr != nullptr) && (counter < itemCount))
+   {
+      doubleList.push_back(curPtr->getItem());
+      curPtr = (reverse ? curPtr->getPrevious() : curPtr->getNext());
+      counter++;
+   }  // end while
+   
+   return doubleList;
+}

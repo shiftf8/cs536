@@ -1,7 +1,7 @@
 #ifndef NODE_DOUBLY_
 #define NODE_DOUBLY_
 
-typedef int ItemType;
+typedef string ItemType;
 
 class NodeDoubly
 {

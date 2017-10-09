@@ -2,10 +2,11 @@
 #define DOUBLY_LINKED_LIST_
 
 #include <string>
+#include <vector>
 #include "NodeDoubly.h"
 #include "LinkedList.h"
 
-typedef int ItemType;
+typedef string ItemType;
 
 class DoublyLinkedList
 {
@@ -33,6 +34,8 @@ public:
 
     DoublyLinkedList(const DoublyLinkedList& aList);
     DoublyLinkedList(const LinkedList& linkedList);
+    void reverse();
+    vector<ItemType> toVector(bool reverse);
 };
 
 #endif
