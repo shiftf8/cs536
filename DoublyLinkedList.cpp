@@ -55,9 +55,21 @@ bool DoublyLinkedList::insert(int newPosition, const ItemType& newEntry)
       {
          // Insert new node at beginning of chain
          newNodePtr->setNext(headPtr);
-         headPtr->setPrevious(newNodePtr);
+         if (itemCount > 1) headPtr->setPrevious(newNodePtr);
          headPtr = newNodePtr;
          headPtr->setPrevious(nullptr);
+      }
+      else if (newPosition == itemCount + 1)
+      {
+         // Find node that will be before new node
+         NodeDoubly* prevPtr = getNodeAt(newPosition - 1);
+
+         // Insert new node after node to which prevPtr points
+         newNodePtr->setNext(nullptr);
+         prevPtr->setNext(newNodePtr);
+         newNodePtr->setPrevious(prevPtr);
+         
+         tailPtr = newNodePtr;
       }
       else
       {
@@ -204,12 +216,44 @@ DoublyLinkedList::DoublyLinkedList(const DoublyLinkedList& aList)
    } // end if
 } // end copy constructor
 
-DoublyLinkedList::DoublyLinkedList(const LinkedList& linkedList)
+DoublyLinkedList::DoublyLinkedList(const LinkedList& linkedList) : headPtr(nullptr), itemCount(0), tailPtr(nullptr)
 {
-    DoublyLinkedList doubleList;
+   for (int i = 1; i <= linkedList.getLength(); i++)
+   {
+      this->insert(i, linkedList.getEntry(i));
+   }
+}
 
-    for (int i = 0; i < linkedList.getLength(); ++i)
-    {
-        doubleList.insert(i, linkedList.getEntry(i));
-    }
+void DoublyLinkedList::reverse()
+{
+   NodeDoubly* curPtr = tailPtr;
+   NodeDoubly* newChainPtr = tailPtr;
+
+   while (curPtr != nullptr)
+   {
+      newChainPtr->setNext(curPtr->getPrevious());
+      newChainPtr->setPrevious(curPtr->getNext());
+      
+      newChainPtr = newChainPtr->getNext();
+      curPtr = curPtr->getPrevious();
+   }
+   
+   this->headPtr = tailPtr;
+   this->tailPtr = curPtr;
+}
+
+vector<ItemType> DoublyLinkedList::toVector(bool reverse)
+{
+   std::vector<ItemType> doubleList;
+   NodeDoubly* curPtr = (reverse ? tailPtr: headPtr);
+   int counter = 0;
+   
+   while ((curPtr != nullptr) && (counter < itemCount))
+   {
+      doubleList.push_back(curPtr->getItem());
+      curPtr = (reverse ? curPtr->getPrevious() : curPtr->getNext());
+      counter++;
+   }  // end while
+   
+   return doubleList;
 }

@@ -2,39 +2,51 @@
 #include "DoublyLinkedList.h"
 #include "LinkedList.h"
 
+using namespace std;
+
+void printVector(vector<string>& v)
+{
+   for (vector<string>::iterator i = v.begin(); i != v.end(); ++i)
+   {
+      cout << *i << " " ;
+   }   
+   cout << endl;
+}
+
 int main()
 {
-    LinkedList list;
+    LinkedList slist;
     
-    for (int i = 1; i <= 10; i++)
-    {
-        list.insert(i, 100 + i);
-    }
+    slist.insert(1, "aa"), slist.insert(2, "bb"), slist.insert(3, "cc"), slist.insert(4, "dd");
     
-    cout << "length [10]: " << list.getLength() << endl;
-    cout << "isEmpty [0]: " << list.isEmpty() << endl;
-    list.remove(3);
-    cout << "length [9]: " << list.getLength() << endl;
+    DoublyLinkedList dlist(slist);
     
-    int entry = list.getEntry(3);
-    cout << "Entry [104]: " << entry << endl;
+    vector<string> v = dlist.toVector(0);
+    cout << "Step 3 dlist:\t";
+    printVector(v);
     
-    list.replace(3, 999);
-    entry = list.getEntry(3);
-    cout << "Entry [999]: " << entry << endl;
+    v = dlist.toVector(1);
+    cout << "Step 4 dlist:\t";
+    printVector(v);
     
-    cout << "list: ";
-    for (int i = 1; i <= list.getLength(); i++)
-    {
-        cout << list.getEntry(i) <<  " ";
-    }
-    cout << endl;
+    dlist.reverse();
+    v = dlist.toVector(0);
+    cout << "Step 6 dlist:\t";
+    printVector(v);
     
-    list.clear();
-    cout << "length [0]: " << list.getLength() << endl;
-    cout << "isEmpty [1]: " << list.isEmpty() << endl;
+    DoublyLinkedList dlist2(dlist);
+    v = dlist2.toVector(0);
+    cout << "Step 8 dlist:\t";
+    printVector(v);
+
+    dlist2.reverse();
+    v = dlist2.toVector(0);
+    cout << "Step 10 dlist:\t";
+    printVector(v);
     
-    DoublyLinkedList doubleList;
-    doubleList.insert(1, list.getEntry(1));
-    // doubleList = DoublyLinkedList(list);
+    v = dlist.toVector(0);
+    cout << "Step 11 dlist:\t";
+    printVector(v);
+    
+    return 0;
 }
