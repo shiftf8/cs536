@@ -1,9 +1,16 @@
 #include <stack>
 #include <string>
-#include "PreInfPosFixCalc.h"
+
+using namespace std;
+
+string infixToPostfix(string exp);
 
 int main()
 {
+    stack<string> operator_stack;
+    string expression;
+    
+    
 
     return 0;
 }
