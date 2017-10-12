@@ -1,5 +1,1 @@
 A + B * C
-( A + B ) * C
-A *( B + C * D )+ E
-A * ( ( E / B ) + C )
-( A – B ) / C * ( D + E )
