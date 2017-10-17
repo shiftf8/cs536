@@ -7,11 +7,13 @@ using namespace std;
 static const size_t MAX_EXPRESSION_SIZE = 128;
 
 string infixToPostfix(string expression);
+bool isEqualOrHigherPrecedence(char current_operator, char top_of_operator_stack);
 
 int main()
 {
     stack<char> operator_stack;
-    string expression;
+    string expression_string;
+    char expression[MAX_EXPRESSION_SIZE] = {0};
     char c;
     
     FILE* input_expressions;
@@ -19,37 +21,42 @@ int main()
     input_expressions = fopen("input.PreInfPosFixCalc.txt", "r");
     if (input_expressions == NULL) perror("Error opening file.\n");
     
-    while (fscanf(input_expressions, "%c", &c) != EOF)
+    while (fgets(expression, MAX_EXPRESSION_SIZE - 1, input_expressions))
     {
-        if (c >= 'A' && c <= 'Z') expression.push_back(c);
-        if (c == '(') operator_stack.push(c);
-        if (c == ')')
+        int i = 0;
+        
+        while ((c = expression[i]) != '\n')
         {
-            while (operator_stack.top() != '(')
+            if (c >= 'A' && c <= 'Z') expression_string.push_back(c);
+            if (c == '(') operator_stack.push(c);
+            if (c == ')')
             {
-                expression.push_back(operator_stack.top());
+                while (operator_stack.top() != '(')
+                {
+                    expression_string.push_back(operator_stack.top());
+                    operator_stack.pop();
+                }
                 operator_stack.pop();
             }
-            operator_stack.pop();
+            if (c == '*' || c == '/' || c == '+' || c == '-')
+            {
+                if (!operator_stack.empty())
+                {
+                    while (operator_stack.top() != '(' && isEqualOrHigherPrecedence(c, operator_stack.top()))
+                    {
+                        expression_string.push_back(operator_stack.top());
+                        operator_stack.pop();
+                    }
+                    operator_stack.push(c);
+                }
+                operator_stack.push(c);
+            }
+            i++;
         }
-        if (c == '*' || c == '/' || c == '+' || c == '-')
-        {
-            // while ((operator_stack.top() != '(') || (!operator_stack.empty()))
-            // {
-            //     // //Split conditional for easier reading
-            //     // if ((c == '*' || c == '/') && (operator_stack.top() == '+' || operator_stack.top() == '-')) //Check if current operator is of higher precedence
-            //     // {
-            //     //     expression.push_back(operator_stack.top());
-            //     //     operator_stack.pop();
-            //     // }
-            //     // else if (c == operator_stack.top()) //Check if current operator is of equal precedence
-            //     // {
-            //     //     expression.push_back(operator_stack.top());
-            //     //     operator_stack.pop();
-            //     // }
-            // }
-            operator_stack.push(c);
-        }
+        
+        cout << endl << expression_string << endl;
+        expression_string.clear();
+        while(!operator_stack.empty()) operator_stack.pop();
     }
 
     fclose(input_expressions);
@@ -60,4 +67,10 @@ int main()
 string infixToPostfix(string expression)
 {
     
+}
+bool isEqualOrHigherPrecedence(char current_operator, char top_of_operator_stack)
+{
+    if (current_operator == top_of_operator_stack) return true;
+    if ((current_operator == '*' || current_operator == '/') && (top_of_operator_stack == '+' || top_of_operator_stack == '-')) return true;
+    return false;
 }
