@@ -14,7 +14,6 @@ int main()
     stack<char> operator_stack;
     string expression_string;
     char expression[MAX_EXPRESSION_SIZE] = {0};
-    char c;
     
     FILE* input_expressions;
     
@@ -23,6 +22,7 @@ int main()
     
     while (fgets(expression, MAX_EXPRESSION_SIZE - 1, input_expressions))
     {
+        char c;
         int i = 0;
         
         while ((c = expression[i]) != '\n')
@@ -42,15 +42,13 @@ int main()
             {
                 if (!operator_stack.empty())
                 {
-                    if (isEqualOrHigherPrecedence(c, operator_stack.top()))
+                    while (1)
                     {
-                        while (operator_stack.top() != '(' && !operator_stack.empty())
-                        {
-                            expression_string.push_back(operator_stack.top());
-                            operator_stack.pop();
-                        }
-                        operator_stack.push(c);
+                        expression_string.push_back(operator_stack.top());
+                        operator_stack.pop();
+                        break;
                     }
+                    operator_stack.push(c);
                 }
                 else operator_stack.push(c);
             }
