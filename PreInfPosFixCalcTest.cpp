@@ -42,19 +42,22 @@ int main()
             {
                 if (!operator_stack.empty())
                 {
-                    while (operator_stack.top() != '(' && isEqualOrHigherPrecedence(c, operator_stack.top()))
+                    if (isEqualOrHigherPrecedence(c, operator_stack.top()))
                     {
-                        expression_string.push_back(operator_stack.top());
-                        operator_stack.pop();
+                        while (operator_stack.top() != '(' && !operator_stack.empty())
+                        {
+                            expression_string.push_back(operator_stack.top());
+                            operator_stack.pop();
+                        }
+                        operator_stack.push(c);
                     }
-                    operator_stack.push(c);
                 }
-                operator_stack.push(c);
+                else operator_stack.push(c);
             }
             i++;
         }
         
-        cout << endl << expression_string << endl;
+        cout << expression_string << endl;
         expression_string.clear();
         while(!operator_stack.empty()) operator_stack.pop();
     }
