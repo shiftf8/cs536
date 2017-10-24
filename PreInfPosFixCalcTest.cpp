@@ -12,55 +12,47 @@ bool isEqualOrHigherPrecedence(char current_operator, char top_of_operator_stack
 int main()
 {
     stack<char> operator_stack;
-    string expression_string;
-    char expression[MAX_EXPRESSION_SIZE] = {0};
+    string output_expression;
+    char c;
+
+
+    FILE* file_input;
     
-    FILE* input_expressions;
+    file_input = fopen("input.PreInfPosFixCalc.txt", "r");
+    if (file_input == NULL) perror("Error opening file.\n");
     
-    input_expressions = fopen("input.PreInfPosFixCalc.txt", "r");
-    if (input_expressions == NULL) perror("Error opening file.\n");
-    
-    while (fgets(expression, MAX_EXPRESSION_SIZE - 1, input_expressions))
+    while ((c = fgetc(file_input)) != EOF)
     {
-        char c;
-        int i = 0;
-        
-        while ((c = expression[i]) != '\n')
+        if (c >= 'A' && c <= 'Z') output_expression.push_back(c);
+        if (c == '(') operator_stack.push(c);
+        if (c == ')')
         {
-            if (c >= 'A' && c <= 'Z') expression_string.push_back(c);
-            if (c == '(') operator_stack.push(c);
-            if (c == ')')
+            while (operator_stack.top() != '(')
             {
-                while (operator_stack.top() != '(')
-                {
-                    expression_string.push_back(operator_stack.top());
-                    operator_stack.pop();
-                }
+                output_expression.push_back(operator_stack.top());
                 operator_stack.pop();
             }
-            if (c == '*' || c == '/' || c == '+' || c == '-')
-            {
-                if (!operator_stack.empty())
-                {
-                    while (1)
-                    {
-                        expression_string.push_back(operator_stack.top());
-                        operator_stack.pop();
-                        break;
-                    }
-                    operator_stack.push(c);
-                }
-                else operator_stack.push(c);
-            }
-            i++;
+            operator_stack.pop();
         }
-        
-        cout << expression_string << endl;
-        expression_string.clear();
-        while(!operator_stack.empty()) operator_stack.pop();
+        if (c == '*' || c == '/' || c == '+' || c == '-')
+        {
+            while (!operator_stack.empty())
+            {
+                if (operator_stack.top() == '(') operator_stack.pop();
+                if ()
+                operator_stack.push(c);
+            }
+            operator_stack.push(c);
+        }
+        if (c == '\n')
+        {
+            cout << output_expression << endl;
+            output_expression.clear();
+            while(!operator_stack.empty()) operator_stack.pop();
+        }
     }
 
-    fclose(input_expressions);
+    fclose(file_input);
 
     return 0;
 }
