@@ -7,7 +7,7 @@ using namespace std;
 static const size_t MAX_EXPRESSION_SIZE = 128;
 
 string infixToPostfix(string expression);
-bool isEqualOrHigherPrecedence(char current_operator, char top_of_operator_stack);
+bool isLowerPrecedence(char current_operator, char top_of_operator_stack);
 
 int main()
 {
@@ -38,9 +38,16 @@ int main()
         {
             while (!operator_stack.empty())
             {
-                if (operator_stack.top() == '(') operator_stack.pop();
-                if ()
-                operator_stack.push(c);
+                if (operator_stack.top() == '(')
+                {
+                    operator_stack.pop();
+                    break;
+                }
+                if (!isLowerPrecedence(c, operator_stack.top()))
+                {
+                    output_expression.push_back(operator_stack.top());
+                    operator_stack.pop();
+                }
             }
             operator_stack.push(c);
         }
@@ -61,9 +68,9 @@ string infixToPostfix(string expression)
 {
     
 }
-bool isEqualOrHigherPrecedence(char current_operator, char top_of_operator_stack)
+bool isLowerPrecedence(char current_operator, char top_of_operator_stack)
 {
-    if (current_operator == top_of_operator_stack) return true;
-    if ((current_operator == '*' || current_operator == '/') && (top_of_operator_stack == '+' || top_of_operator_stack == '-')) return true;
-    return false;
+    if (current_operator == top_of_operator_stack) return false;
+    if ((current_operator == '*' || current_operator == '/') && (top_of_operator_stack == '+' || top_of_operator_stack == '-')) return false;
+    return true;
 }
