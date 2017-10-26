@@ -1,8 +1,12 @@
-shiftf8:~/workspace (master) $ g++ -std=c++11 DualStackTest.cpp 
-shiftf8:~/workspace (master) $ ./a.out 
+shiftf8:~/workspace (dualstack) $ g++ DualStackTest.cpp 
+shiftf8:~/workspace (dualstack) $ ./a.out 
 isEmpty1():     1
 isEmpty2():     1
 isFull1():      1
 isFull2():      1
-peek1():        0
-peek2():        0
+peek1():        40
+peek2():        600
+peek1():        20
+peek2():        300
+isEmpty1():     1
+isEmpty2():     0
