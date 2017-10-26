@@ -21,7 +21,7 @@ bool DualStack::push2(int x)
 {
     if (!isFull2()) //For consistency sake, we'll use isFullx() of the stack we're trying to push to.
     {
-        dual_stack[dual_stack_length - stack_two_length] = x;
+        dual_stack[(dual_stack_length - 1) - stack_two_length] = x;
         stack_two_length++;
         return true;
     }

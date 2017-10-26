@@ -9,11 +9,11 @@ int main()
         <<"isEmpty2():\t" <<test.isEmpty2() <<std::endl;
         
     test.push1(10);
-    std::cout <<"peek1():\t" <<test.peek1() <<std::endl;
+    // std::cout <<"peek1():\t" <<test.peek1() <<std::endl;
     test.push1(20);
-    std::cout <<"peek1():\t" <<test.peek1() <<std::endl;
+    // std::cout <<"peek1():\t" <<test.peek1() <<std::endl;
     test.push1(30);
-    std::cout <<"peek1():\t" <<test.peek1() <<std::endl;
+    // std::cout <<"peek1():\t" <<test.peek1() <<std::endl;
     test.push1(40);
     test.push2(100), test.push2(200), test.push2(300), test.push2(400), test.push2(500), test.push2(600);
 
