@@ -1,0 +1,20 @@
+shiftf8:~/workspace (master) $ g++ -std=c++11 RecursionTest.cpp                                                                                                                      
+shiftf8:~/workspace (master) $ ./a.out 
+3, 9, 2, 7, 9, 4, 4, 3, 9       T: 9    E: 3    R: 3
+3, 9, 2, 7, 9, 4, 4, 3, 9       T: 4    E: 2    R: 2
+6                               T: 6    E: 1    R: 1
+4, 6, 2, 3                      T: 9    E: 0    R: 0
+12                              T: 5    E: 0    R: 0
+
+radar   true
+x       true
+aba     true
+xx      true
+ab      false
+abc     false
+123321  true
+xxlx    false
+
+Hello world                             world Hello
+Goodbye                                 Goodbye
+When in the course of human events      events human of course the in When
