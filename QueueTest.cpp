@@ -10,7 +10,7 @@ void radixSort(std::queue<int> *queues, int *numbers);
 
 int main()
 {
-    // srand(time(0));
+    // srand(time(0)); //Can be seeded for additional random output.
     
     std::queue<int> radixQueues[DIGIT_COUNT];
 
