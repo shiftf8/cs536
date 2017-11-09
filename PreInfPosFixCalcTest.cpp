@@ -5,12 +5,11 @@
 static const size_t MAX_EXPRESSION_SIZE = 128;
 
 std::string infixToPostfix(std::string expression);
+bool isOperand(char c);
 
 int main()
 {
-    std::stack<char> operator_stack;
     std::string input_expression;
-    std::string output_expression;
 
     while (getline(std::cin, input_expression))
     {
@@ -22,9 +21,19 @@ int main()
 
 std::string infixToPostfix(std::string expression)
 {
-    while ()
+    std::stack<char> operator_stack;
+    std::string output_expression;
+    char c;
+    
+    while (sscanf(expression, "%c", c)) //CANNOT use sscanf. Need to use string functions?
     {
-        break;
+        if (isOperand(c)) output_expression.push_back();
     }
-    return "x";
+    
+    return output_expression;
+}
+bool isOperand(char c)
+{
+    if (c != '*' && c != '/' && c != '+' && c != '-') return true;
+    return false;
 }
