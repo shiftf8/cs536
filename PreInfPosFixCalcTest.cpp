@@ -1,6 +1,8 @@
+#include <algorithm>
+#include <cctype>
 #include <iostream>
 #include <stack>
-#include <sstream>
+// #include <sstream>
 #include <string>
 
 std::string infixToPostfix(const std::string &expression);
@@ -16,12 +18,16 @@ int main()
     {
         std::string post_fix_expression;
         std::string pre_fix_expression;
+        double post_fix_evaluation;
         
         post_fix_expression = infixToPostfix(infix_expression);
-        std::cout <<post_fix_expression <<std::endl;
-        
         pre_fix_expression = postfixToPrefix(post_fix_expression);
-        std::cout <<pre_fix_expression <<std::endl;
+        
+        std::string::iterator new_end = std::remove_if(infix_expression.begin(), infix_expression.end(), isspace);
+        std::cout <<std::string(infix_expression.begin(), new_end) <<"        \t" <<pre_fix_expression <<"\t" <<post_fix_expression <<std::endl;
+        
+        // post_fix_evaluation = evaluatePostfix(post_fix_expression);
+        // std::cout <<post_fix_evaluation <<std::endl;
     }
 
     return 0;
@@ -31,13 +37,14 @@ std::string infixToPostfix(const std::string &expression)
 {
     std::stack<char> operator_stack;
     std::string output_expression;
+    std::string ch;
 
-    std::istringstream strin(expression);
-    for (std::string token; strin >> token; )
+    for (int i = 0; i < expression.length(); ++i)
     {
-        if (token >= "A" && token <= "Z") output_expression.append(token);
-        if (token == "(") operator_stack.push('(');
-        if (token == ")")
+        ch = expression[i];
+        if (ch >= "A" && ch <= "Z") output_expression.append(ch);
+        if (ch == "(") operator_stack.push('(');
+        if (ch == ")")
         {
             while (operator_stack.top() != '(')
             {
@@ -46,7 +53,7 @@ std::string infixToPostfix(const std::string &expression)
             }
             operator_stack.pop();
         }
-        if (token == "*")
+        if (ch == "*")
         {
             if (!operator_stack.empty())
             {
@@ -58,7 +65,7 @@ std::string infixToPostfix(const std::string &expression)
             }
             operator_stack.push('*');
         }
-        if (token == "/")
+        if (ch == "/")
         {
             if (!operator_stack.empty())
             {
@@ -70,7 +77,7 @@ std::string infixToPostfix(const std::string &expression)
             }
             operator_stack.push('/');
         }
-        if (token == "+")
+        if (ch == "+")
         {
             if (!operator_stack.empty())
             {
@@ -82,7 +89,7 @@ std::string infixToPostfix(const std::string &expression)
             }
             operator_stack.push('+');
         }
-        if (token == "-")
+        if (ch == "-")
         {
             if (!operator_stack.empty())
             {
@@ -115,7 +122,9 @@ bool isEqualOrHigherPrecedence(const char top_of_stack, const char input)
 }
 double evaluatePostfix(const std::string &post_fix_expression)
 {
+    std::stack<double> S;
     
+    return S.top();
 }
 std::string postfixToPrefix(const std::string &expression)
 {
@@ -132,7 +141,7 @@ std::string postfixToPrefix(const std::string &expression)
             S.pop();
             std::string y =  S.top();
             S.pop();
-            S.push(ch + x + y);
+            S.push(ch + y + x);
         }
     }
     
