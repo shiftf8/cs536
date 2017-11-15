@@ -4,7 +4,8 @@
 #include <string>
 
 std::string infixToPostfix(const std::string &expression);
-bool isHigherOrEqualPrecedence(const char top_of_stack, const char input);
+bool isEqualOrHigherPrecedence(const char top_of_stack, const char input);
+double evaluatePostfix(const std::string &post_fix_expression);
 std::string postfixToPrefix(const std::string &expression);
 
 int main()
@@ -34,8 +35,6 @@ std::string infixToPostfix(const std::string &expression)
     std::istringstream strin(expression);
     for (std::string token; strin >> token; )
     {
-        std::istringstream wordin(token);
-        
         if (token >= "A" && token <= "Z") output_expression.append(token);
         if (token == "(") operator_stack.push('(');
         if (token == ")")
@@ -51,7 +50,7 @@ std::string infixToPostfix(const std::string &expression)
         {
             if (!operator_stack.empty())
             {
-                while (operator_stack.top() != '(' && isHigherOrEqualPrecedence(operator_stack.top(), '*'))
+                while (operator_stack.top() != '(' && isEqualOrHigherPrecedence(operator_stack.top(), '*'))
                 {
                     output_expression.push_back(operator_stack.top());
                     operator_stack.pop();
@@ -63,7 +62,7 @@ std::string infixToPostfix(const std::string &expression)
         {
             if (!operator_stack.empty())
             {
-                while (operator_stack.top() != '(' && isHigherOrEqualPrecedence(operator_stack.top(), '/'))
+                while (operator_stack.top() != '(' && isEqualOrHigherPrecedence(operator_stack.top(), '/'))
                 {
                     output_expression.push_back(operator_stack.top());
                     operator_stack.pop();
@@ -75,7 +74,7 @@ std::string infixToPostfix(const std::string &expression)
         {
             if (!operator_stack.empty())
             {
-                while (operator_stack.top() != '(' && isHigherOrEqualPrecedence(operator_stack.top(), '+'))
+                while (operator_stack.top() != '(' && isEqualOrHigherPrecedence(operator_stack.top(), '+'))
                 {
                     output_expression.push_back(operator_stack.top());
                     operator_stack.pop();
@@ -87,7 +86,7 @@ std::string infixToPostfix(const std::string &expression)
         {
             if (!operator_stack.empty())
             {
-                while (operator_stack.top() != '(' && isHigherOrEqualPrecedence(operator_stack.top(), '-'))
+                while (operator_stack.top() != '(' && isEqualOrHigherPrecedence(operator_stack.top(), '-'))
                 {
                     output_expression.push_back(operator_stack.top());
                     operator_stack.pop();
@@ -105,7 +104,7 @@ std::string infixToPostfix(const std::string &expression)
     
     return output_expression;
 }
-bool isHigherOrEqualPrecedence(const char top_of_stack, const char input)
+bool isEqualOrHigherPrecedence(const char top_of_stack, const char input)
 {
     if (top_of_stack == '*' && (input == '*' || input == '/' || input == '+' || input == '-')) return true; //Easier to read and more explicit, to test each input possibility.
     if (top_of_stack == '/' && (input == '/' || input == '+' || input == '-')) return true;
@@ -114,15 +113,28 @@ bool isHigherOrEqualPrecedence(const char top_of_stack, const char input)
     
     return false;
 }
+double evaluatePostfix(const std::string &post_fix_expression)
+{
+    
+}
 std::string postfixToPrefix(const std::string &expression)
 {
     std::stack<std::string> S;
-    std::string output_expression;
+    std::string ch;
+
+    for (int i = 0; i < expression.length(); ++i)
+    {
+        ch = expression[i];
+        if (ch >= "A" && ch <= "Z") S.push(ch);
+        if (ch == "*" || ch == "/" || ch == "+" || ch == "-")
+        {
+            std::string x = S.top();
+            S.pop();
+            std::string y =  S.top();
+            S.pop();
+            S.push(ch + x + y);
+        }
+    }
     
-    // while (!expression.empty())
-    // {
-        
-    // }
-    
-    return output_expression;
+    return S.top();
 }
