@@ -2,11 +2,10 @@
 #include <cctype>
 #include <iostream>
 #include <stack>
-// #include <sstream>
 #include <string>
 
 std::string infixToPostfix(const std::string &expression);
-bool isEqualOrHigherPrecedence(const char top_of_stack, const char input);
+bool isEqualOrHigherPrecedence(const std::string &top_of_stack, const std::string &input);
 double evaluatePostfix(const std::string &post_fix_expression);
 std::string postfixToPrefix(const std::string &expression);
 
@@ -35,7 +34,7 @@ int main()
 
 std::string infixToPostfix(const std::string &expression)
 {
-    std::stack<char> operator_stack;
+    std::stack<std::string> operator_stack;
     std::string output_expression;
     std::string ch;
 
@@ -43,12 +42,12 @@ std::string infixToPostfix(const std::string &expression)
     {
         ch = expression[i];
         if (ch >= "A" && ch <= "Z") output_expression.append(ch);
-        if (ch == "(") operator_stack.push('(');
+        if (ch == "(") operator_stack.push("(");
         if (ch == ")")
         {
-            while (operator_stack.top() != '(')
+            while (operator_stack.top() != "(")
             {
-                output_expression.push_back(operator_stack.top());
+                output_expression.append(operator_stack.top());
                 operator_stack.pop();
             }
             operator_stack.pop();
@@ -57,66 +56,66 @@ std::string infixToPostfix(const std::string &expression)
         {
             if (!operator_stack.empty())
             {
-                while (operator_stack.top() != '(' && isEqualOrHigherPrecedence(operator_stack.top(), '*'))
+                while (operator_stack.top() != "(" && isEqualOrHigherPrecedence(operator_stack.top(), ch))
                 {
-                    output_expression.push_back(operator_stack.top());
+                    output_expression.append(operator_stack.top());
                     operator_stack.pop();
                 }
             }
-            operator_stack.push('*');
+            operator_stack.push("*");
         }
         if (ch == "/")
         {
             if (!operator_stack.empty())
             {
-                while (operator_stack.top() != '(' && isEqualOrHigherPrecedence(operator_stack.top(), '/'))
+                while (operator_stack.top() != "(" && isEqualOrHigherPrecedence(operator_stack.top(), ch))
                 {
-                    output_expression.push_back(operator_stack.top());
+                    output_expression.append(operator_stack.top());
                     operator_stack.pop();
                 }
             }
-            operator_stack.push('/');
+            operator_stack.push("/");
         }
         if (ch == "+")
         {
             if (!operator_stack.empty())
             {
-                while (operator_stack.top() != '(' && isEqualOrHigherPrecedence(operator_stack.top(), '+'))
+                while (operator_stack.top() != "(" && isEqualOrHigherPrecedence(operator_stack.top(), ch))
                 {
-                    output_expression.push_back(operator_stack.top());
+                    output_expression.append(operator_stack.top());
                     operator_stack.pop();
                 }
             }
-            operator_stack.push('+');
+            operator_stack.push("+");
         }
         if (ch == "-")
         {
             if (!operator_stack.empty())
             {
-                while (operator_stack.top() != '(' && isEqualOrHigherPrecedence(operator_stack.top(), '-'))
+                while (operator_stack.top() != "(" && isEqualOrHigherPrecedence(operator_stack.top(), ch))
                 {
-                    output_expression.push_back(operator_stack.top());
+                    output_expression.append(operator_stack.top());
                     operator_stack.pop();
                 }
             }
-            operator_stack.push('-');
+            operator_stack.push("-");
         }
     }
     
     while (!operator_stack.empty())
     {
-        output_expression.push_back(operator_stack.top());
+        output_expression.append(operator_stack.top());
         operator_stack.pop();
     }
     
     return output_expression;
 }
-bool isEqualOrHigherPrecedence(const char top_of_stack, const char input)
+bool isEqualOrHigherPrecedence(const std::string &top_of_stack, const std::string &input)
 {
-    if (top_of_stack == '*' && (input == '*' || input == '/' || input == '+' || input == '-')) return true; //Easier to read and more explicit, to test each input possibility.
-    if (top_of_stack == '/' && (input == '/' || input == '+' || input == '-')) return true;
-    if (top_of_stack == '+' && (input == '+' || input == '-')) return true;
-    if (top_of_stack == '-' && (input == '-')) return true;
+    if (top_of_stack == "*" && (input == "*" || input == "/" || input == "+" || input == "-")) return true; //Easier to read and more explicit, to test each input possibility.
+    if (top_of_stack == "/" && (input == "/" || input == "+" || input == "-")) return true;
+    if (top_of_stack == "+" && (input == "+" || input == "-")) return true;
+    if (top_of_stack == "-" && (input == "-")) return true;
     
     return false;
 }
