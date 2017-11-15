@@ -42,7 +42,7 @@ std::string infixToPostfix(const std::string &expression)
     {
         ch = expression[i];
         if (ch >= "A" && ch <= "Z") output_expression.append(ch);
-        if (ch == "(") operator_stack.push("(");
+        if (ch == "(") operator_stack.push(ch);
         if (ch == ")")
         {
             while (operator_stack.top() != "(")
@@ -62,7 +62,7 @@ std::string infixToPostfix(const std::string &expression)
                     operator_stack.pop();
                 }
             }
-            operator_stack.push("*");
+            operator_stack.push(ch);
         }
         if (ch == "/")
         {
@@ -74,11 +74,11 @@ std::string infixToPostfix(const std::string &expression)
                     operator_stack.pop();
                 }
             }
-            operator_stack.push("/");
+            operator_stack.push(ch);
         }
         if (ch == "+")
         {
-            if (!operator_stack.empty())
+            if (!operator_stack.empty() && operator_stack.top() != "(")
             {
                 while (operator_stack.top() != "(" && isEqualOrHigherPrecedence(operator_stack.top(), ch))
                 {
@@ -86,7 +86,7 @@ std::string infixToPostfix(const std::string &expression)
                     operator_stack.pop();
                 }
             }
-            operator_stack.push("+");
+            operator_stack.push(ch);
         }
         if (ch == "-")
         {
@@ -98,8 +98,9 @@ std::string infixToPostfix(const std::string &expression)
                     operator_stack.pop();
                 }
             }
-            operator_stack.push("-");
+            operator_stack.push(ch);
         }
+        ch.clear();
     }
     
     while (!operator_stack.empty())
