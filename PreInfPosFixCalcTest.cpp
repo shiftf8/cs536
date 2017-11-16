@@ -15,6 +15,12 @@ std::string postfixToPrefix(const std::string expression);
 int main()
 {
     std::string infix_expression;
+    int column_width = 16;
+
+    std::cout <<std::left <<std::setw(column_width) <<"infix"
+        <<std::left <<std::setw(column_width) <<"prefix"
+        <<std::left <<std::setw(column_width) <<"postfix"
+        <<std::left <<std::setw(column_width) <<"value" <<"\n\n";
 
     while (getline(std::cin, infix_expression))
     {
@@ -24,14 +30,14 @@ int main()
         
         post_fix_expression = infixToPostfix(infix_expression);
         pre_fix_expression = postfixToPrefix(post_fix_expression);
+        post_fix_evaluation = evaluatePostfix(post_fix_expression);
         
         std::string::iterator new_end = std::remove_if(infix_expression.begin(), infix_expression.end(), isspace);
-        std::cout <<std::left <<std::setw(16) <<std::string(infix_expression.begin(), new_end)
-            <<std::left <<std::setw(12) <<pre_fix_expression
-            <<std::left <<std::setw(12) <<post_fix_expression <<std::endl;
         
-        post_fix_evaluation = evaluatePostfix(post_fix_expression);
-        std::cout <<post_fix_evaluation <<std::endl;
+        std::cout <<std::left <<std::setw(column_width) <<std::string(infix_expression.begin(), new_end)
+            <<std::left <<std::setw(column_width) <<pre_fix_expression
+            <<std::left <<std::setw(column_width) <<post_fix_expression
+            <<std::left <<std::setw(column_width) <<post_fix_evaluation <<std::endl;
     }
 
     return 0;
