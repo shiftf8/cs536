@@ -4,10 +4,11 @@
 #include <stack>
 #include <string>
 
-std::string infixToPostfix(const std::string &expression);
-bool isEqualOrHigherPrecedence(const std::string &top_of_stack, const std::string &input);
-double evaluatePostfix(const std::string &post_fix_expression);
-std::string postfixToPrefix(const std::string &expression);
+std::string infixToPostfix(const std::string expression);
+bool isEqualOrHigherPrecedence(const std::string top_of_stack, const std::string current_char);
+std::string stackOperator(std::stack<std::string>& operation_stack, std::string& return_expression, std::string operator_ch);
+double evaluatePostfix(const std::string post_fix_expression);
+std::string postfixToPrefix(const std::string expression);
 
 int main()
 {
@@ -32,7 +33,7 @@ int main()
     return 0;
 }
 
-std::string infixToPostfix(const std::string &expression)
+std::string infixToPostfix(const std::string expression)
 {
     std::stack<std::string> operator_stack;
     std::string output_expression;
@@ -52,55 +53,7 @@ std::string infixToPostfix(const std::string &expression)
             }
             operator_stack.pop();
         }
-        if (ch == "*")
-        {
-            if (!operator_stack.empty())
-            {
-                while (operator_stack.top() != "(" && isEqualOrHigherPrecedence(operator_stack.top(), ch))
-                {
-                    output_expression.append(operator_stack.top());
-                    operator_stack.pop();
-                }
-            }
-            operator_stack.push(ch);
-        }
-        if (ch == "/")
-        {
-            if (!operator_stack.empty())
-            {
-                while (operator_stack.top() != "(" && isEqualOrHigherPrecedence(operator_stack.top(), ch))
-                {
-                    output_expression.append(operator_stack.top());
-                    operator_stack.pop();
-                }
-            }
-            operator_stack.push(ch);
-        }
-        if (ch == "+")
-        {
-            if (!operator_stack.empty() && operator_stack.top() != "(")
-            {
-                while (operator_stack.top() != "(" && isEqualOrHigherPrecedence(operator_stack.top(), ch))
-                {
-                    output_expression.append(operator_stack.top());
-                    operator_stack.pop();
-                }
-            }
-            operator_stack.push(ch);
-        }
-        if (ch == "-")
-        {
-            if (!operator_stack.empty())
-            {
-                while (operator_stack.top() != "(" && isEqualOrHigherPrecedence(operator_stack.top(), ch))
-                {
-                    output_expression.append(operator_stack.top());
-                    operator_stack.pop();
-                }
-            }
-            operator_stack.push(ch);
-        }
-        ch.clear();
+        if (ch == "*" || ch == "/" || ch == "+" || ch == "-") output_expression = stackOperator(operator_stack, output_expression, ch);
     }
     
     while (!operator_stack.empty())
@@ -111,22 +64,33 @@ std::string infixToPostfix(const std::string &expression)
     
     return output_expression;
 }
-bool isEqualOrHigherPrecedence(const std::string &top_of_stack, const std::string &input)
+bool isEqualOrHigherPrecedence(const std::string top_of_stack, const std::string current_char)
 {
-    if (top_of_stack == "*" && (input == "*" || input == "/" || input == "+" || input == "-")) return true; //Easier to read and more explicit, to test each input possibility.
-    if (top_of_stack == "/" && (input == "/" || input == "+" || input == "-")) return true;
-    if (top_of_stack == "+" && (input == "+" || input == "-")) return true;
-    if (top_of_stack == "-" && (input == "-")) return true;
+    if (top_of_stack == "*" && (current_char == "*" || current_char == "/" || current_char == "+" || current_char == "-")) return true; //Easier to read and more explicit, to test each current_char possibility.
+    if (top_of_stack == "/" && (current_char == "/" || current_char == "+" || current_char == "-")) return true;
+    if (top_of_stack == "+" && (current_char == "+" || current_char == "-")) return true;
+    if (top_of_stack == "-" && (current_char == "-")) return true;
     
     return false;
 }
-double evaluatePostfix(const std::string &post_fix_expression)
+std::string stackOperator(std::stack<std::string>& operation_stack, std::string& return_expression, std::string operator_ch)
+{
+    while (!operation_stack.empty() && operation_stack.top() != "(" && isEqualOrHigherPrecedence(operation_stack.top(), operator_ch))
+    {
+        return_expression.append(operation_stack.top());
+        operation_stack.pop();
+    }
+    operation_stack.push(operator_ch);
+    
+    return return_expression;
+}
+double evaluatePostfix(const std::string post_fix_expression)
 {
     std::stack<double> S;
     
     return S.top();
 }
-std::string postfixToPrefix(const std::string &expression)
+std::string postfixToPrefix(const std::string expression)
 {
     std::stack<std::string> S;
     std::string ch;
