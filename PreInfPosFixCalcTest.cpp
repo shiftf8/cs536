@@ -1,18 +1,26 @@
 #include <algorithm>
 #include <cctype>
+#include <iomanip>
 #include <iostream>
 #include <stack>
 #include <string>
 
 std::string infixToPostfix(const std::string expression);
 bool isEqualOrHigherPrecedence(const std::string top_of_stack, const std::string current_char);
-std::string stackOperator(std::stack<std::string>& operation_stack, std::string& return_expression, std::string operator_ch);
+std::string stackOperator(std::stack<std::string>& operation_stack, std::string& return_expression, const std::string operator_ch);
 double evaluatePostfix(const std::string post_fix_expression);
+double binaryEvaluation(std::stack<double>& operand_stack, const std::string operator_ch);
 std::string postfixToPrefix(const std::string expression);
 
 int main()
 {
     std::string infix_expression;
+    int column_width = 16;
+
+    std::cout <<std::left <<std::setw(column_width) <<"infix"
+        <<std::left <<std::setw(column_width) <<"prefix"
+        <<std::left <<std::setw(column_width) <<"postfix"
+        <<std::left <<std::setw(column_width) <<"value" <<"\n\n";
 
     while (getline(std::cin, infix_expression))
     {
@@ -22,12 +30,14 @@ int main()
         
         post_fix_expression = infixToPostfix(infix_expression);
         pre_fix_expression = postfixToPrefix(post_fix_expression);
+        post_fix_evaluation = evaluatePostfix(post_fix_expression);
         
         std::string::iterator new_end = std::remove_if(infix_expression.begin(), infix_expression.end(), isspace);
-        std::cout <<std::string(infix_expression.begin(), new_end) <<"        \t" <<pre_fix_expression <<"\t" <<post_fix_expression <<std::endl;
         
-        // post_fix_evaluation = evaluatePostfix(post_fix_expression);
-        // std::cout <<post_fix_evaluation <<std::endl;
+        std::cout <<std::left <<std::setw(column_width) <<std::string(infix_expression.begin(), new_end)
+            <<std::left <<std::setw(column_width) <<pre_fix_expression
+            <<std::left <<std::setw(column_width) <<post_fix_expression
+            <<std::left <<std::setw(column_width) <<post_fix_evaluation <<std::endl;
     }
 
     return 0;
@@ -66,14 +76,15 @@ std::string infixToPostfix(const std::string expression)
 }
 bool isEqualOrHigherPrecedence(const std::string top_of_stack, const std::string current_char)
 {
-    if (top_of_stack == "*" && (current_char == "*" || current_char == "/" || current_char == "+" || current_char == "-")) return true; //Easier to read and more explicit, to test each current_char possibility.
+     //Easier to read and more explicit, to test each current_char possibility.
+    if (top_of_stack == "*" && (current_char == "*" || current_char == "/" || current_char == "+" || current_char == "-")) return true;
     if (top_of_stack == "/" && (current_char == "/" || current_char == "+" || current_char == "-")) return true;
     if (top_of_stack == "+" && (current_char == "+" || current_char == "-")) return true;
     if (top_of_stack == "-" && (current_char == "-")) return true;
     
     return false;
 }
-std::string stackOperator(std::stack<std::string>& operation_stack, std::string& return_expression, std::string operator_ch)
+std::string stackOperator(std::stack<std::string>& operation_stack, std::string& return_expression, const std::string operator_ch)
 {
     while (!operation_stack.empty() && operation_stack.top() != "(" && isEqualOrHigherPrecedence(operation_stack.top(), operator_ch))
     {
@@ -86,9 +97,42 @@ std::string stackOperator(std::stack<std::string>& operation_stack, std::string&
 }
 double evaluatePostfix(const std::string post_fix_expression)
 {
+    double variable_values[] = {2.0, 3.0, 4.0, 5.0, 6.0}; //Hard coded variable values in array. e.g. A, B, C = 1.0, 2.0, 3.0
     std::stack<double> S;
-    
+    std::string ch;
+
+    for (int i = 0; i < post_fix_expression.length(); ++i)
+    {
+        ch = post_fix_expression[i];
+
+        if (ch == "A") S.push(variable_values[0]);
+        if (ch == "B") S.push(variable_values[1]);
+        if (ch == "C") S.push(variable_values[2]);
+        if (ch == "D") S.push(variable_values[3]);
+        if (ch == "E") S.push(variable_values[4]);
+        
+        if (ch == "*" || ch == "/" || ch == "+" || ch == "-") S.push(binaryEvaluation(S, ch));
+    }
+
     return S.top();
+}
+double binaryEvaluation(std::stack<double>& operand_stack, const std::string operator_ch)
+{
+    double A;
+    double B;
+    double retVal;
+
+    A = operand_stack.top();
+    operand_stack.pop();
+    B = operand_stack.top();
+    operand_stack.pop();
+    
+    if (operator_ch == "*") retVal = B * A;
+    if (operator_ch == "/") retVal = B / A; //This assumes the denominator isn't zero.
+    if (operator_ch == "+") retVal = B + A;
+    if (operator_ch == "-") retVal = B - A;
+    
+    return retVal;
 }
 std::string postfixToPrefix(const std::string expression)
 {
