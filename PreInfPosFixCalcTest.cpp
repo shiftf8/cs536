@@ -9,6 +9,7 @@ std::string infixToPostfix(const std::string expression);
 bool isEqualOrHigherPrecedence(const std::string top_of_stack, const std::string current_char);
 std::string stackOperator(std::stack<std::string>& operation_stack, std::string& return_expression, const std::string operator_ch);
 double evaluatePostfix(const std::string post_fix_expression);
+double binaryEvaluation(std::stack<double>& operand_stack, const std::string operator_ch);
 std::string postfixToPrefix(const std::string expression);
 
 int main()
@@ -29,8 +30,8 @@ int main()
             <<std::left <<std::setw(12) <<pre_fix_expression
             <<std::left <<std::setw(12) <<post_fix_expression <<std::endl;
         
-        // post_fix_evaluation = evaluatePostfix(post_fix_expression);
-        // std::cout <<post_fix_evaluation <<std::endl;
+        post_fix_evaluation = evaluatePostfix(post_fix_expression);
+        std::cout <<post_fix_evaluation <<std::endl;
     }
 
     return 0;
@@ -90,9 +91,42 @@ std::string stackOperator(std::stack<std::string>& operation_stack, std::string&
 }
 double evaluatePostfix(const std::string post_fix_expression)
 {
+    double variable_values[] = {2.0, 3.0, 4.0, 5.0, 6.0}; //Hard coded variable values in array. e.g. A, B, C = 1.0, 2.0, 3.0
     std::stack<double> S;
-    
+    std::string ch;
+
+    for (int i = 0; i < post_fix_expression.length(); ++i)
+    {
+        ch = post_fix_expression[i];
+
+        if (ch == "A") S.push(variable_values[0]);
+        if (ch == "B") S.push(variable_values[1]);
+        if (ch == "C") S.push(variable_values[2]);
+        if (ch == "D") S.push(variable_values[3]);
+        if (ch == "E") S.push(variable_values[4]);
+        
+        if (ch == "*" || ch == "/" || ch == "+" || ch == "-") S.push(binaryEvaluation(S, ch));
+    }
+
     return S.top();
+}
+double binaryEvaluation(std::stack<double>& operand_stack, const std::string operator_ch)
+{
+    double A;
+    double B;
+    double retVal;
+
+    A = operand_stack.top();
+    operand_stack.pop();
+    B = operand_stack.top();
+    operand_stack.pop();
+    
+    if (operator_ch == "*") retVal = B * A;
+    if (operator_ch == "/") retVal = B / A; //This assumes the denominator isn't zero.
+    if (operator_ch == "+") retVal = B + A;
+    if (operator_ch == "-") retVal = B - A;
+    
+    return retVal;
 }
 std::string postfixToPrefix(const std::string expression)
 {
