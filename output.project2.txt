@@ -1,5 +1,0 @@
-shiftf8:~/workspace (project2) $ ./a.out 
-bag1: 5 5 5 5 5 4 4 4 4 3 3 3 2 2 1 
-bag1 union bag2: 6 6 7 7 7 5 5 5 5 5 4 4 4 4 3 3 3 2 2 1 
-bag1 inter bag3: 2 3 4 5 
-bag1 diff bag4: 5 5 5 3 5 2 1 
