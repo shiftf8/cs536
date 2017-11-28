@@ -1,0 +1,12 @@
+shiftf8:~/workspace (master) $ g++ -std=c++11 ArithExpTreeMain.cpp 
+shiftf8:~/workspace (master) $ ./a.out < input.ArithmeticExpressionTree.txt 
+A B + C *
+AB+C*
+A B C * +
+ABC*+
+A B C D * + * E +
+ABCD*+*E+
+E D / A C E / + -
+ED/ACE/+-
+A B C * + D E * F + G * +
+ABC*+DE*F+G*+
