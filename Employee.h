@@ -10,10 +10,7 @@ class Employee
         string name;
     
     public:
-        Employee find(int id);
-        void insert(Employee emp);
-        void deleteEmployee(int key);
-        int size();
-        int height();
-        vector<Employee> inOrder();
+        Employee(int the_id, string the_name);
+        
+        void setID(int the_id);
 };

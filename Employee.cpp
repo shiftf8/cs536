@@ -1,8 +1,9 @@
 #include "Employee.h"
 
-Employee find(int id);
-void insert(Employee emp);
-void deleteEmployee(int key);
-int size();
-int height();
-vector<Employee> inOrder();
+Employee::Employee(int the_id, string the_name) : id(the_id), name(the_name)
+{
+}
+void Employee::setID(int the_id)
+{
+    id = the_id;
+}
