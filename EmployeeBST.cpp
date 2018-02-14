@@ -7,3 +7,7 @@ int Employee::getID()
 {
     return id;
 }
+Employee BST::find(int id)
+{
+    
+}

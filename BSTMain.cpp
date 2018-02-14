@@ -1,6 +1,6 @@
 #include <iostream>
-#include "BTNode.cpp"
-#include "EmployeeBST.cpp"
+#include "BTNode.h"
+#include "EmployeeBST.h"
 
 int main()
 {
